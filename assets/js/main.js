@@ -277,9 +277,8 @@
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.about-pin',
-            start: 'center center',
-            end: '+=150%',
-            pin: true,
+            start: 'top 85%',
+            end: 'bottom 40%',
             scrub: 1
           }
         }
