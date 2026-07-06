@@ -713,7 +713,9 @@
         const flatT = easeInOutCubic(clamp01((p - FLAT_START) / (FLAT_END - FLAT_START)));
         
         const spinDeg = p <= ASSEMBLE_END ? 0 : (p - ASSEMBLE_END) / (1 - ASSEMBLE_END) * TOTAL_SPIN_DEG;
-        const flatSpin = p <= FLAT_START ? 0 : (p - FLAT_START) / (1 - FLAT_START) * 180;
+        
+        const flatSpinT = p <= FLAT_START ? 0 : easeInOutCubic(clamp01((p - FLAT_START) / (1 - FLAT_START)));
+        const flatSpin = flatSpinT * 35; // Minimal smooth ease-in effect for the flat circle
         
         const ax = k, ay = 1 - k;
         const R = lerp(RING_RADIUS, ARC_RADIUS, k);
