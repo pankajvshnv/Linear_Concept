@@ -52,9 +52,9 @@
   </div>
 
   <script>
-    const totalFrames = 240;
-    // Using the jsDelivr CDN — hero-v2: compressed frames (CRF 55, ~28KB each)
-    const framePath = i => `https://cdn.jsdelivr.net/gh/pankajvshnv/test@hero-v2/Downloads/Picflow%20Images%20Jul%203/FRAME/frame_${String(i).padStart(3, '0')}.avif`;
+    const totalFrames = 227;
+    // Using the jsDelivr CDN
+    const framePath = i => `https://cdn.jsdelivr.net/gh/pankajvshnv/Linear_Concept@main/scroll_effect/Scoll_${String(i).padStart(5, '0')}.webp`;
 
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
@@ -81,21 +81,48 @@
       }
     }
 
-    // Preload all frames
-    for (let i = 1; i <= totalFrames; i++) {
-      const img = new Image();
-      const idx = i - 1;
-      img.onload = () => {
-        images[idx] = img;
-        onFrameSettled(i, img);
-      };
-      img.onerror = () => {
-        // Frame is missing (e.g. 208, 224) — don't block loading
-        images[idx] = null;
-        onFrameSettled(i, null);
-      };
-      img.src = framePath(i);
+    // Load images in batches to prevent network congestion
+    const BATCH_SIZE = 15;
+    let currentBatch = 0;
+
+    function loadNextBatch() {
+      const start = currentBatch * BATCH_SIZE;
+      const end = Math.min(start + BATCH_SIZE, totalFrames);
+      
+      if (start >= totalFrames) return;
+
+      let batchLoaded = 0;
+      const totalInBatch = end - start;
+
+      for (let i = start; i < end; i++) {
+        const img = new Image();
+        img.decoding = 'async'; // Non-blocking decode
+        const idx = i;
+        
+        const onloadOrErr = () => {
+          batchLoaded++;
+          if (batchLoaded === totalInBatch) {
+            currentBatch++;
+            loadNextBatch(); // load next batch
+          }
+        };
+
+        img.onload  = () => { 
+          images[idx] = img; 
+          onFrameSettled(idx + 1, img); 
+          onloadOrErr();
+        };
+        img.onerror = () => { 
+          images[idx] = null;
+          onFrameSettled(idx + 1, null); 
+          onloadOrErr();
+        };
+        img.src = framePath(i + 1);
+      }
     }
+
+    // Start loading dynamically
+    loadNextBatch();
 
     function drawFrame(index) {
       const img = images[index];

@@ -303,6 +303,10 @@
     </div>
   </section>
 
+  <!-- Smooth Transition Spacer -->
+  <div style="height: 15vh; background: var(--ink);"></div>
+  <div style="height: 25vh; background: linear-gradient(to bottom, var(--ink), #0a0a09);"></div>
+
   <!-- ════════════ RING → ARC JOURNEY SECTION ════════════ -->
   <style>
     /* ---------- RING SECTION SCOPED STYLES ---------- */
@@ -601,7 +605,9 @@
         }
 
         const dim = lerp(1, 0.35+facing*0.45, assembleT);
-        el.style.opacity = clamp01(dim+0.55);
+        // Fade in the cards as they assemble (start invisible at p=0)
+        const baseOpacity = Math.min(1, assembleT * 3);
+        el.style.opacity = clamp01(dim+0.55) * baseOpacity;
         el.style.filter  = `brightness(${lerp(1,0.7+facing*0.3,assembleT)})`;
         el.style.zIndex  = Math.round(facing*100);
 
@@ -846,9 +852,9 @@
     'use strict';
 
     /* ── Config ── */
-    const TOTAL_FRAMES = 240;
+    const TOTAL_FRAMES = 227;
     const framePath = i =>
-      `https://cdn.jsdelivr.net/gh/pankajvshnv/test@main/Downloads/linear-concepts-site/animation/FRAME/frame_${String(i).padStart(3, '0')}.avif`;
+      `https://cdn.jsdelivr.net/gh/pankajvshnv/Linear_Concept@main/scroll_effect/Scoll_${String(i).padStart(5, '0')}.webp`;
 
     /* ── DOM refs ── */
     const canvas = document.getElementById('hero-canvas');
@@ -863,6 +869,7 @@
     let   targetFrame = 0;   // frame we WANT to show (updated on scroll)
     let   drawnFrame  = -1;  // frame last painted to canvas
     let   rafRunning  = false;
+    let   isScrollInitialized = false;
 
     /* ── Size canvas to cover the viewport ── */
     function resizeCanvas() {
@@ -920,46 +927,78 @@
     }
 
     /* ── Frame loading ── */
-    function onFrameSettled(img) {
+    function onFrameSettled(index, img) {
       loadedCount++;
       const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
-      fillEl.style.width = pct + '%';
-      pctEl.textContent  = pct + '%';
+      if (fillEl) fillEl.style.width = pct + '%';
+      if (pctEl) pctEl.textContent  = pct + '%';
 
       // Draw frame 0 as soon as the first image arrives
-      if (loadedCount === 1 && img) scheduleRaf();
+      if (index === 0 && img) scheduleRaf();
 
-      if (loadedCount === TOTAL_FRAMES) {
-        loadEl.style.opacity = '0';
-        setTimeout(() => { loadEl.style.display = 'none'; }, 600);
-        scheduleRaf();
-        initScrollAnimation();
+      // Hide the loader early so the user isn't blocked.
+      // Since it's loading in the background, we can hide it when the first batch is ready.
+      if (loadedCount >= 10 || loadedCount === TOTAL_FRAMES) {
+        if (loadEl && loadEl.style.opacity !== '0') {
+          loadEl.style.opacity = '0';
+          setTimeout(() => { loadEl.style.display = 'none'; }, 600);
+        }
       }
     }
 
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      const img = new Image();
-      const idx = i - 1;
-      img.onload  = () => { images[idx] = img; onFrameSettled(img); };
-      img.onerror = () => {                     onFrameSettled(null); };
-      img.src = framePath(i);
+    // Load images in batches to prevent network congestion
+    const BATCH_SIZE = 15;
+    let currentBatch = 0;
+
+    function loadNextBatch() {
+      const start = currentBatch * BATCH_SIZE;
+      const end = Math.min(start + BATCH_SIZE, TOTAL_FRAMES);
+      
+      if (start >= TOTAL_FRAMES) return;
+
+      let batchLoaded = 0;
+      const totalInBatch = end - start;
+
+      for (let i = start; i < end; i++) {
+        const img = new Image();
+        img.decoding = 'async'; // Non-blocking decode
+        const idx = i;
+        
+        const onloadOrErr = () => {
+          batchLoaded++;
+          if (batchLoaded === totalInBatch) {
+            currentBatch++;
+            loadNextBatch(); // load next batch
+          }
+        };
+
+        img.onload  = () => { 
+          images[idx] = img; 
+          onFrameSettled(idx, img); 
+          onloadOrErr();
+        };
+        img.onerror = () => { 
+          onFrameSettled(idx, null); 
+          onloadOrErr();
+        };
+        img.src = framePath(i + 1);
+      }
     }
 
     /* ── Init: pin hero with GSAP, scrub frames via Lenis scroll event ── */
     function initScrollAnimation() {
+      if (isScrollInitialized) return;
+      isScrollInitialized = true;
+      
       const zone = document.getElementById('hero-scroll-zone');
 
       // ── Lenis: listen for scroll events → instant frame update ──
-      // main.js already sets window.__lenis and proxies Lenis → ScrollTrigger.
-      // We just attach our own frame-scrub listener here.
       function attachScrollListener() {
         if (window.__lenis) {
-          // Lenis fires 'scroll' every RAF tick with smoothed scrollY
           window.__lenis.on('scroll', ({ scroll }) => {
             updateFrameFromScroll(scroll);
           });
         } else {
-          // Fallback: native scroll (for reduced-motion / no-Lenis path)
           window.addEventListener('scroll', () => {
             updateFrameFromScroll(window.scrollY);
           }, { passive: true });
@@ -974,16 +1013,23 @@
           end:        'bottom bottom',
           pin:        '#hero',
           pinSpacing: false,
-          // No scrub here — scrubbing is handled by the Lenis listener above
-          // which fires every animation frame, giving 60/120fps smoothness
         });
         ScrollTrigger.refresh();
       }
 
       attachScrollListener();
-
-      // Seed frame 0 immediately
       updateFrameFromScroll(window.scrollY);
+    }
+
+    // Initialize ScrollTrigger immediately on DOMContentLoaded so layout doesn't jump
+    document.addEventListener('DOMContentLoaded', initScrollAnimation);
+    
+    // Defer the heavy frame loading until after the main window load event
+    // This allows the master preloader to finish quickly and the page to become interactive
+    if (document.readyState === 'complete') {
+      setTimeout(loadNextBatch, 100);
+    } else {
+      window.addEventListener('load', () => setTimeout(loadNextBatch, 100));
     }
 
   })();
