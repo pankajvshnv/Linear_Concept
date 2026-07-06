@@ -219,8 +219,18 @@
     function initPage() {
       initLenis();
 
-
-
+      // ─── Navbar Hide on Scroll Past Hero ───
+      ScrollTrigger.create({
+        trigger: '#hero-scroll-zone',
+        start: 'top top',
+        end: 'bottom top',
+        onLeave: () => {
+          document.getElementById('nav').classList.add('nav-hidden');
+        },
+        onEnterBack: () => {
+          document.getElementById('nav').classList.remove('nav-hidden');
+        }
+      });
       // ─── Horizontal Rules ───
       gsap.utils.toArray('.h-rule').forEach(rule => {
         gsap.to(rule, {
