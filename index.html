@@ -459,7 +459,7 @@
 
     .lc-journey-stats {
       position: relative;
-      height: 450px;
+      height: 600px;
       overflow: hidden;
       mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
       -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
@@ -470,7 +470,7 @@
       flex-direction: column;
       gap: 40px;
       transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-      padding-top: 150px;
+      padding-top: 200px;
       /* Offset to center the first item */
     }
 
@@ -490,7 +490,7 @@
       font-family: 'Inter', sans-serif;
       font-weight: 300;
       line-height: 1;
-      font-size: clamp(60px, 7vw, 120px);
+      font-size: clamp(80px, 11vw, 180px);
       color: #111;
       letter-spacing: -0.03em;
     }
@@ -645,13 +645,13 @@
 
       const N = projects.length;
       const RING_RADIUS = 460;
-      const ARC_RADIUS = 320;
+      let ARC_RADIUS = 320;
       const ASSEMBLE_END = 0.14;
       const TRANSITION_START = 0.40;
       const TRANSITION_END = 0.58;
       const FLAT_START = 0.80;
       const FLAT_END = 0.90;
-      const TOTAL_SPIN_DEG = 360;
+      const TOTAL_SPIN_DEG = 540;
 
       const railEl = document.getElementById('lcProgressRail');
       const flatCaption = document.getElementById('lcFlatCaption');
@@ -700,11 +700,13 @@
         const h = window.innerHeight;
         IS_DESKTOP = w > 900;
         if (!IS_DESKTOP) {
-          LEFT_OFFSET = 0;
+          ARC_RADIUS = 600;
+          LEFT_OFFSET = -ARC_RADIUS + w * 0.05;
           CARD_SCALE = 0.65;
           FLAT_RADIUS = Math.max(400, Math.max(w, h) * 0.45);
         } else {
-          LEFT_OFFSET = -w * 0.27;
+          ARC_RADIUS = 1200;
+          LEFT_OFFSET = -ARC_RADIUS - w * 0.02; // Position right edge exactly near the stats text
           CARD_SCALE = 1;
           FLAT_RADIUS = Math.max(750, Math.max(w, h) * 0.55);
         }
