@@ -152,6 +152,15 @@
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
+        
+        // Close mobile menu on click
+        const nav = document.getElementById('nav');
+        const hamburger = document.getElementById('nav-toggle');
+        if (nav.classList.contains('nav-open')) {
+          nav.classList.remove('nav-open');
+          hamburger.classList.remove('active');
+        }
+
         const target = document.querySelector(link.getAttribute('href'));
         if (target) {
           if (lenis) {
@@ -162,6 +171,15 @@
         }
       });
     });
+
+    const hamburger = document.getElementById('nav-toggle');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        const nav = document.getElementById('nav');
+        nav.classList.toggle('nav-open');
+        hamburger.classList.toggle('active');
+      });
+    }
 
     /* ────────────────────────────
        ACTIVE NAV TRACKING

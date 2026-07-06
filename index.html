@@ -51,13 +51,18 @@
   <!-- ════════════ NAVIGATION ════════════ -->
   <header class="navbar" id="nav">
     <div class="logo">💧</div>
-    <nav>
-      <a href="#hero" class="nav-link active" data-section="hero">Home</a>
-      <a href="#about" class="nav-link" data-section="about">About Us</a>
-      <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-      <a href="#services" class="nav-link" data-section="services">Services</a>
-    </nav>
-    <a href="#contact" class="cta nav-link" data-section="contact">Contact Us</a>
+    <div class="hamburger" id="nav-toggle">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links-wrap" id="nav-links">
+      <nav>
+        <a href="#hero" class="nav-link active" data-section="hero">Home</a>
+        <a href="#about" class="nav-link" data-section="about">About Us</a>
+        <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+        <a href="#services" class="nav-link" data-section="services">Services</a>
+      </nav>
+      <a href="#contact" class="cta nav-link" data-section="contact">Contact Us</a>
+    </div>
   </header>
 
   <!-- ════════════ HERO (scroll-driven frame animation) ════════════ -->
@@ -605,7 +610,9 @@
         // Fade in the cards as they assemble (start invisible at p=0)
         const baseOpacity = Math.min(1, assembleT * 3);
         el.style.opacity = clamp01(dim+0.55) * baseOpacity;
-        el.style.filter  = `brightness(${lerp(1,0.7+facing*0.3,assembleT)})`;
+        if (window.innerWidth > 900) {
+          el.style.filter  = `brightness(${lerp(1,0.7+facing*0.3,assembleT)})`;
+        }
         el.style.zIndex  = Math.round(facing*100);
 
         const distFromFront = Math.min(normalized, 360-normalized);
