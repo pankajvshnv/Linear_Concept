@@ -51,9 +51,9 @@
   <!-- ════════════ NAVIGATION ════════════ -->
   <header class="navbar" id="nav">
     <a href="#" class="logo">
-      <img src="images/project-hotel.png" alt="Linear Concepts">
+      <img src="images/linear_logo.png" alt="Linear Concepts">
     </a>
-    
+
     <nav class="nav-links" id="nav-links">
       <a href="#hero" class="nav-link active" data-section="hero">Home</a>
       <a href="#about" class="nav-link" data-section="about">About Us</a>
@@ -61,7 +61,7 @@
       <a href="#services" class="nav-link" data-section="services">Services</a>
       <a href="#contact" class="nav-link mobile-only-cta" data-section="contact">Contact Us</a>
     </nav>
-    
+
     <div class="nav-right">
       <a href="#contact" class="cta nav-link" data-section="contact">Contact Us</a>
       <div class="hamburger" id="nav-toggle">
@@ -76,13 +76,9 @@
     <section id="hero">
       <div id="hero-bg">
         <!-- Static hero image — shown instantly, fades when first frame is ready -->
-        <img
-          id="hero-static-img"
+        <img id="hero-static-img"
           src="https://cdn.jsdelivr.net/gh/pankajvshnv/test@main/Downloads/linear-concepts-site/images/hero_image.png"
-          alt="Linear Concepts architecture hero"
-          decoding="async"
-          fetchpriority="high"
-        >
+          alt="Linear Concepts architecture hero" decoding="async" fetchpriority="high">
         <!-- Canvas — frames are scrubbed on scroll, fades in over the static image -->
         <canvas id="hero-canvas"></canvas>
       </div>
@@ -101,7 +97,8 @@
         <h1 class="hero-headline">We design spaces<br>that <em>hold</em><br>their silence.</h1>
         <div class="hero-foot">
           <p class="hero-foot-desc">
-            A studio for residential, hospitality and urban-planned environments — where structure, light and material are drawn as one discipline.
+            A studio for residential, hospitality and urban-planned environments — where structure, light and material
+            are drawn as one discipline.
           </p>
           <div class="scroll-indicator">
             <div class="scroll-line"></div>Scroll
@@ -151,7 +148,8 @@
       <div class="project-card reveal-up">
         <span class="project-card-number">001</span>
         <div class="project-card-image">
-          <img src="https://www.linearconcepts.in/images/projects/details/facades/facades-10.jpg" alt="Facades hospitality project">
+          <img src="https://www.linearconcepts.in/images/projects/details/facades/facades-10.jpg"
+            alt="Facades hospitality project">
         </div>
         <div class="project-card-info">
           <div class="project-card-name">Facades</div>
@@ -165,7 +163,8 @@
       <div class="project-card reveal-up">
         <span class="project-card-number">002</span>
         <div class="project-card-image">
-          <img src="https://www.linearconcepts.in/images/projects/details/micasa/micasa-07.jpg" alt="Micasa residential project">
+          <img src="https://www.linearconcepts.in/images/projects/details/micasa/micasa-07.jpg"
+            alt="Micasa residential project">
         </div>
         <div class="project-card-info">
           <div class="project-card-name">Micasa</div>
@@ -179,7 +178,8 @@
       <div class="project-card reveal-up">
         <span class="project-card-number">003</span>
         <div class="project-card-image">
-          <img src="https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-01.jpg" alt="Satyasheel corporate project">
+          <img src="https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-01.jpg"
+            alt="Satyasheel corporate project">
         </div>
         <div class="project-card-info">
           <div class="project-card-name">Satyasheel</div>
@@ -193,7 +193,8 @@
       <div class="project-card reveal-up">
         <span class="project-card-number">004</span>
         <div class="project-card-image">
-          <img src="https://www.linearconcepts.in/images/projects/details/modern-duplex/modern-duplex-07.jpg" alt="Modern Duplex project">
+          <img src="https://www.linearconcepts.in/images/projects/details/modern-duplex/modern-duplex-07.jpg"
+            alt="Modern Duplex project">
         </div>
         <div class="project-card-info">
           <div class="project-card-name">Modern Duplex</div>
@@ -312,116 +313,202 @@
   <!-- ════════════ RING → ARC JOURNEY SECTION ════════════ -->
   <style>
     /* ---------- RING SECTION SCOPED STYLES ---------- */
-    .lc-ring-section{
-      height:400vh;
-      position:relative;
+    .lc-ring-section {
+      height: 400vh;
+      position: relative;
     }
-    .lc-ring-viewport{
-      position:relative; height:100vh; overflow:hidden;
+
+    .lc-ring-viewport {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
       background: #ffffff;
     }
-    .lc-ring-perspective{
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      perspective:1400px;
+
+    .lc-ring-perspective {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1400px;
     }
-    .lc-ring-stage{
-      position:relative; width:1px; height:1px;
-      transform-style:preserve-3d;
-      will-change:transform;
+
+    .lc-ring-stage {
+      position: relative;
+      width: 1px;
+      height: 1px;
+      transform-style: preserve-3d;
+      will-change: transform;
     }
-    .lc-card{
-      position:absolute; top:0; left:0;
-      width:190px; height:250px;
-      margin:-125px 0 0 -95px;
-      border-radius:3px;
-      overflow:hidden;
-      background:#111110;
-      background:#ffffff;
-      box-shadow:0 30px 60px -20px rgba(0,0,0,0.2);
-      will-change:transform, opacity, filter;
-      backface-visibility:hidden;
+
+    .lc-card {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 190px;
+      height: 250px;
+      margin: -125px 0 0 -95px;
+      border-radius: 3px;
+      overflow: hidden;
+      background: #111110;
+      background: #ffffff;
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.2);
+      will-change: transform, opacity, filter;
+      backface-visibility: hidden;
     }
-    .lc-card img{
-      width:100%; height:100%; object-fit:cover; display:block;
-      filter:grayscale(0.55) sepia(0.12) contrast(1.05) brightness(0.92);
+
+    .lc-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(0.55) sepia(0.12) contrast(1.05) brightness(0.92);
     }
-    .lc-card .lc-tag{
-      position:absolute; left:0; right:0; bottom:0;
-      padding:10px 12px 9px;
-      font-size:10.5px; letter-spacing:0.05em; text-transform:uppercase;
-      color:#ffffff;
-      background:linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
-      font-family:'Inter', sans-serif;
+
+    .lc-card .lc-tag {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 12px 9px;
+      font-size: 10.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+      font-family: 'Inter', sans-serif;
     }
-    .lc-ring-caption{
-      position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-      z-index:0; text-align:center; pointer-events:none;
-      width:min(90vw, 520px);
+
+    .lc-ring-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      text-align: center;
+      pointer-events: none;
+      width: min(90vw, 520px);
     }
-    .lc-ring-caption .lc-index{
-      font-size:11px; letter-spacing:0.18em; color:#c69a5b; margin-bottom:14px;
-      font-family:'Inter', sans-serif;
+
+    .lc-ring-caption .lc-index {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: #c69a5b;
+      margin-bottom: 14px;
+      font-family: 'Inter', sans-serif;
     }
-    .lc-ring-caption h2{
-      font-family:'Fraunces', serif; font-weight:300; font-size:clamp(28px, 4vw, 46px);
-      letter-spacing:-0.01em; transition:opacity 0.25s ease; color:#111111;
+
+    .lc-ring-caption h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: clamp(28px, 4vw, 46px);
+      letter-spacing: -0.01em;
+      transition: opacity 0.25s ease;
+      color: #111111;
     }
-    .lc-ring-caption p{
-      margin-top:12px; font-size:13.5px; color:#555555; line-height:1.6;
-      font-family:'Inter', sans-serif;
+
+    .lc-ring-caption p {
+      margin-top: 12px;
+      font-size: 13.5px;
+      color: #555555;
+      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
     }
-    .lc-progress-rail{
-      position:absolute; right:36px; top:50%; transform:translateY(-50%); z-index:40;
-      width:1px; height:160px; background:rgba(0,0,0,0.1);
-      display:flex; align-items:flex-end;
+
+    .lc-progress-rail {
+      position: absolute;
+      right: 36px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 40;
+      width: 1px;
+      height: 160px;
+      background: rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: flex-end;
     }
-    .lc-progress-rail .lc-fill{width:100%; background:#111; height:0%;}
-    .lc-journey-text-col{
-      position:absolute; top:50%; right:6vw; transform:translateY(-50%);
-      width:min(40vw, 500px);
-      opacity:0; pointer-events:none;
-      will-change:opacity;
+
+    .lc-progress-rail .lc-fill {
+      width: 100%;
+      background: #111;
+      height: 0%;
     }
-    .lc-journey-eyebrow{
-      font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#555;
-      display:block; margin-bottom:30px; font-family:'Inter', sans-serif;
+
+    .lc-journey-text-col {
+      position: absolute;
+      top: 50%;
+      right: 6vw;
+      transform: translateY(-50%);
+      width: min(40vw, 500px);
+      opacity: 0;
+      pointer-events: none;
+      will-change: opacity;
     }
-    .lc-journey-stats{ 
-      position:relative; 
-      height:450px;
-      overflow:hidden;
+
+    .lc-journey-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #555;
+      display: block;
+      margin-bottom: 30px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lc-journey-stats {
+      position: relative;
+      height: 450px;
+      overflow: hidden;
       mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
       -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
     }
+
     .lc-journey-stats-inner {
-      display:flex; flex-direction:column; gap:40px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
       transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-      padding-top: 150px; /* Offset to center the first item */
+      padding-top: 150px;
+      /* Offset to center the first item */
     }
-    .lc-journey-stat{
-      opacity:0.25; 
-      transform:scale(0.95);
+
+    .lc-journey-stat {
+      opacity: 0.25;
+      transform: scale(0.95);
       transform-origin: left center;
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .lc-journey-stat.active{ 
-      opacity:1; 
-      transform:scale(1);
+
+    .lc-journey-stat.active {
+      opacity: 1;
+      transform: scale(1);
     }
-    .lc-journey-stat .lc-value{
-      font-family:'Inter', sans-serif; font-weight:300; line-height:1;
-      font-size:clamp(60px, 7vw, 120px); color:#111;
-      letter-spacing:-0.03em;
+
+    .lc-journey-stat .lc-value {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      line-height: 1;
+      font-size: clamp(60px, 7vw, 120px);
+      color: #111;
+      letter-spacing: -0.03em;
     }
-    .lc-journey-stat .lc-label{
-      margin-top:12px; font-size:clamp(26px, 3vw, 46px); color:#111; max-width:460px; line-height:1.05;
-      font-family:'Fraunces', serif; font-weight:300;
-      letter-spacing:-0.02em;
+
+    .lc-journey-stat .lc-label {
+      margin-top: 12px;
+      font-size: clamp(26px, 3vw, 46px);
+      color: #111;
+      max-width: 460px;
+      line-height: 1.05;
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      letter-spacing: -0.02em;
     }
-    .lc-journey-dots{
-      display:none;
+
+    .lc-journey-dots {
+      display: none;
     }
+
     @media (max-width: 900px) {
       .lc-journey-text-col {
         top: auto;
@@ -431,30 +518,36 @@
         right: 6vw;
         text-align: center;
       }
+
       .lc-journey-stats {
         height: 180px;
       }
+
       .lc-journey-stats-inner {
         padding-top: 80px;
         gap: 20px;
       }
+
       .lc-journey-stat {
         transform-origin: center center;
       }
+
       .lc-journey-stat .lc-label {
         margin-left: auto;
         margin-right: auto;
       }
+
       .lc-ring-caption {
         top: 12vh;
         transform: translate(-50%, 0);
       }
     }
-    .lc-section-intro{
-      padding:80px 0 0;
-      text-align:center;
-      position:relative;
-      z-index:1;
+
+    .lc-section-intro {
+      padding: 80px 0 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
     }
   </style>
 
@@ -476,207 +569,209 @@
         </div>
         <div class="lc-journey-dots" id="lcJourneyDots"></div>
       </div>
-      <div class="lc-progress-rail"><div class="lc-fill" id="lcRailFill"></div></div>
+      <div class="lc-progress-rail">
+        <div class="lc-fill" id="lcRailFill"></div>
+      </div>
     </div>
   </section>
 
   <script>
-  (function(){
-    const projects = [
-      { title:"Facades",             sub:"Hospitality · Delhi · 2022",          img:"https://www.linearconcepts.in/images/projects/details/facades/facades-10.jpg" },
-      { title:"Micasa",              sub:"Luxury Residential · Gurugram · 2021", img:"https://www.linearconcepts.in/images/projects/details/micasa/micasa-07.jpg" },
-      { title:"Satyasheel",          sub:"Corporate · Noida · 2020",             img:"https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-01.jpg" },
-      { title:"Modern Duplex",       sub:"Residential · 2023",                   img:"https://www.linearconcepts.in/images/projects/details/modern-duplex/modern-duplex-07.jpg" },
-      { title:"Satyasheel Interior", sub:"Corporate · Noida · 2020",             img:"https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-14.jpg" },
-      { title:"Satyasheel Workspace",sub:"Corporate · Noida · 2020",             img:"https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-02.jpg" },
-      { title:"Meridian Atrium",     sub:"Mixed-use · natural ventilation",     img:"https://picsum.photos/id/1074/600/800" },
-      { title:"Salt Marsh Retreat",  sub:"Elevated timber frame · 2016",        img:"https://picsum.photos/id/1016/600/800" },
-      { title:"Copper Roof Atelier", sub:"Standing-seam copper · 2015",         img:"https://picsum.photos/id/1035/600/800" },
-      { title:"Basalt Courtyard",    sub:"Volcanic stone facade · 2014",        img:"https://picsum.photos/id/1041/600/800" }
-    ];
+    (function () {
+      const projects = [
+        { title: "Facades", sub: "Hospitality · Delhi · 2022", img: "https://www.linearconcepts.in/images/projects/details/facades/facades-10.jpg" },
+        { title: "Micasa", sub: "Luxury Residential · Gurugram · 2021", img: "https://www.linearconcepts.in/images/projects/details/micasa/micasa-07.jpg" },
+        { title: "Satyasheel", sub: "Corporate · Noida · 2020", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-01.jpg" },
+        { title: "Modern Duplex", sub: "Residential · 2023", img: "https://www.linearconcepts.in/images/projects/details/modern-duplex/modern-duplex-07.jpg" },
+        { title: "Satyasheel Interior", sub: "Corporate · Noida · 2020", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-14.jpg" },
+        { title: "Satyasheel Workspace", sub: "Corporate · Noida · 2020", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-02.jpg" },
+        { title: "Meridian Atrium", sub: "Mixed-use · natural ventilation", img: "https://picsum.photos/id/1074/600/800" },
+        { title: "Salt Marsh Retreat", sub: "Elevated timber frame · 2016", img: "https://picsum.photos/id/1016/600/800" },
+        { title: "Copper Roof Atelier", sub: "Standing-seam copper · 2015", img: "https://picsum.photos/id/1035/600/800" },
+        { title: "Basalt Courtyard", sub: "Volcanic stone facade · 2014", img: "https://picsum.photos/id/1041/600/800" }
+      ];
 
-    const stats = [
-      { value:"350+", label:"Projects delivered across India and beyond" },
-      { value:"45+",  label:"Professionals on the team" },
-      { value:"40K",  label:"Total area developed (sqft)" },
-      { value:"38+",  label:"Years of combined studio experience" },
-      { value:"92%",  label:"Clients who return for a second project" }
-    ];
+      const stats = [
+        { value: "350+", label: "Projects delivered across India and beyond" },
+        { value: "45+", label: "Professionals on the team" },
+        { value: "40K", label: "Total area developed (sqft)" },
+        { value: "38+", label: "Years of combined studio experience" },
+        { value: "92%", label: "Clients who return for a second project" }
+      ];
 
-    const stage    = document.getElementById('lcRingStage');
-    const captionEl= document.getElementById('lcRingCaption');
-    const captionTitle = document.getElementById('lcCaptionTitle');
-    const captionSub   = document.getElementById('lcCaptionSub');
-    const captionIndex = document.querySelector('#lcRingCaption .lc-index');
-    const railFill = document.getElementById('lcRailFill');
-    const section  = document.getElementById('ringSection');
-    const journeyCol   = document.getElementById('lcJourneyTextCol');
-    const statsHost    = document.getElementById('lcJourneyStats');
-    const dotsHost     = document.getElementById('lcJourneyDots');
+      const stage = document.getElementById('lcRingStage');
+      const captionEl = document.getElementById('lcRingCaption');
+      const captionTitle = document.getElementById('lcCaptionTitle');
+      const captionSub = document.getElementById('lcCaptionSub');
+      const captionIndex = document.querySelector('#lcRingCaption .lc-index');
+      const railFill = document.getElementById('lcRailFill');
+      const section = document.getElementById('ringSection');
+      const journeyCol = document.getElementById('lcJourneyTextCol');
+      const statsHost = document.getElementById('lcJourneyStats');
+      const dotsHost = document.getElementById('lcJourneyDots');
 
-    const N = projects.length;
-    const RING_RADIUS = 460;
-    const ARC_RADIUS  = 320;
-    const ASSEMBLE_END      = 0.14;
-    const TRANSITION_START  = 0.40;
-    const TRANSITION_END    = 0.58;
-    const TOTAL_SPIN_DEG    = 360;
+      const N = projects.length;
+      const RING_RADIUS = 460;
+      const ARC_RADIUS = 320;
+      const ASSEMBLE_END = 0.14;
+      const TRANSITION_START = 0.40;
+      const TRANSITION_END = 0.58;
+      const TOTAL_SPIN_DEG = 360;
 
-    const scatter = [
-      { x:-520, y:-260, rz:-14 }, { x: 520, y:-260, rz: 10 },
-      { x:-560, y:  60, rz:  8 }, { x: 560, y:  40, rz:-11 },
-      { x:-480, y: 300, rz: 16 }, { x: 500, y: 310, rz: -8 },
-      { x:-220, y:-360, rz:  6 }, { x: 220, y: 370, rz: -6 },
-      { x:   0, y:-430, rz:  4 }, { x:   0, y: 430, rz: -4 }
-    ];
+      const scatter = [
+        { x: -520, y: -260, rz: -14 }, { x: 520, y: -260, rz: 10 },
+        { x: -560, y: 60, rz: 8 }, { x: 560, y: 40, rz: -11 },
+        { x: -480, y: 300, rz: 16 }, { x: 500, y: 310, rz: -8 },
+        { x: -220, y: -360, rz: 6 }, { x: 220, y: 370, rz: -6 },
+        { x: 0, y: -430, rz: 4 }, { x: 0, y: 430, rz: -4 }
+      ];
 
-    const cards = projects.map((p) => {
-      const el = document.createElement('div');
-      el.className = 'lc-card';
-      el.innerHTML = `<img src="${p.img}" alt="${p.title}" loading="lazy"><div class="lc-tag">${p.title}</div>`;
-      stage.appendChild(el);
-      return el;
-    });
-
-    stats.forEach((s, i) => {
-      const el = document.createElement('div');
-      el.className = 'lc-journey-stat' + (i===0 ? ' active' : '');
-      el.id = 'lcJourneyStat' + i;
-      el.innerHTML = `<div class="lc-value">${s.value}</div><p class="lc-label">${s.label}</p>`;
-      statsHost.appendChild(el);
-      const dot = document.createElement('span');
-      dot.id = 'lcJourneyDot' + i;
-      if(i===0) dot.className='active';
-      dotsHost.appendChild(dot);
-    });
-
-    function lerp(a,b,t){ return a+(b-a)*t; }
-    function easeInOutCubic(t){ return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; }
-    function clamp01(v){ return Math.max(0,Math.min(1,v)); }
-
-    let LEFT_OFFSET = 0;
-    let CARD_SCALE = 1;
-    function measure(){ 
-      const w = window.innerWidth;
-      if (w < 900) {
-        LEFT_OFFSET = 0;
-        CARD_SCALE = 0.65;
-      } else {
-        LEFT_OFFSET = -w*0.27; 
-        CARD_SCALE = 1;
-      }
-    }
-    measure();
-    window.addEventListener('resize', measure);
-
-    let activeStat = -1;
-    let targetProgress = 0;
-    let currentProgress = 0;
-
-    function renderLoop(){
-      currentProgress = lerp(currentProgress, targetProgress, 0.08);
-      const p = clamp01(currentProgress);
-
-      railFill.style.height = (p*100).toFixed(1)+'%';
-
-      const assembleT = easeInOutCubic(clamp01(p/ASSEMBLE_END));
-      const k = easeInOutCubic(clamp01((p-TRANSITION_START)/(TRANSITION_END-TRANSITION_START)));
-      const spinDeg = p<=ASSEMBLE_END ? 0 : (p-ASSEMBLE_END)/(1-ASSEMBLE_END)*TOTAL_SPIN_DEG;
-      const ax = k, ay = 1-k;
-      const R = lerp(RING_RADIUS, ARC_RADIUS, k);
-      const arcShrink = lerp(1, 0.82, k);
-
-      stage.style.transform = `translateX(${lerp(0,LEFT_OFFSET,k)}px)`;
-
-      let frontIndex = 0, frontMinAngle = 361;
-
-      cards.forEach((el, i) => {
-        const baseAngle = (360/N)*i;
-        const theta     = baseAngle + spinDeg;
-        const normalized= ((theta%360)+360)%360;
-        const facing    = Math.cos(normalized*Math.PI/180);
-
-        if(p<=ASSEMBLE_END || assembleT<1){
-          const s = scatter[i];
-          const x = lerp(s.x, 0, assembleT);
-          const y = lerp(s.y, 0, assembleT);
-          const rotY = lerp(0, theta, assembleT);
-          const rotZ = lerp(s.rz, 0, assembleT);
-          const zOffset = lerp(0, RING_RADIUS*CARD_SCALE, assembleT);
-          const scale = lerp(0.72*CARD_SCALE, CARD_SCALE, assembleT);
-          el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${zOffset}px) scale(${scale})`;
-        } else {
-          el.style.transform = `rotate3d(${ax},${ay},0,${theta}deg) translateZ(${R*CARD_SCALE}px) scale(${arcShrink*CARD_SCALE})`;
-        }
-
-        const dim = lerp(1, 0.35+facing*0.45, assembleT);
-        // Fade in the cards as they assemble (start invisible at p=0)
-        const baseOpacity = Math.min(1, assembleT * 3);
-        el.style.opacity = clamp01(dim+0.55) * baseOpacity;
-        if (window.innerWidth > 900) {
-          el.style.filter  = `brightness(${lerp(1,0.7+facing*0.3,assembleT)})`;
-        }
-        el.style.zIndex  = Math.round(facing*100);
-
-        const distFromFront = Math.min(normalized, 360-normalized);
-        if(distFromFront < frontMinAngle){ frontMinAngle=distFromFront; frontIndex=i; }
+      const cards = projects.map((p) => {
+        const el = document.createElement('div');
+        el.className = 'lc-card';
+        el.innerHTML = `<img src="${p.img}" alt="${p.title}" loading="lazy"><div class="lc-tag">${p.title}</div>`;
+        stage.appendChild(el);
+        return el;
       });
 
-      const captionOpacity = Math.min(1,Math.max(0,(assembleT-0.6)/0.15))*(1-k);
-      if(captionOpacity>0.02){
-        const proj = projects[frontIndex];
-        if(captionTitle.textContent !== proj.title){
-          captionTitle.style.opacity=0; captionSub.style.opacity=0;
-          setTimeout(()=>{
-            captionTitle.textContent=proj.title;
-            captionSub.textContent  =proj.sub;
-            captionIndex.textContent=String(frontIndex+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
-            captionTitle.style.opacity=1; captionSub.style.opacity=1;
-          },100);
+      stats.forEach((s, i) => {
+        const el = document.createElement('div');
+        el.className = 'lc-journey-stat' + (i === 0 ? ' active' : '');
+        el.id = 'lcJourneyStat' + i;
+        el.innerHTML = `<div class="lc-value">${s.value}</div><p class="lc-label">${s.label}</p>`;
+        statsHost.appendChild(el);
+        const dot = document.createElement('span');
+        dot.id = 'lcJourneyDot' + i;
+        if (i === 0) dot.className = 'active';
+        dotsHost.appendChild(dot);
+      });
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+      function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+      function clamp01(v) { return Math.max(0, Math.min(1, v)); }
+
+      let LEFT_OFFSET = 0;
+      let CARD_SCALE = 1;
+      function measure() {
+        const w = window.innerWidth;
+        if (w < 900) {
+          LEFT_OFFSET = 0;
+          CARD_SCALE = 0.65;
+        } else {
+          LEFT_OFFSET = -w * 0.27;
+          CARD_SCALE = 1;
         }
       }
-      captionEl.style.opacity = captionOpacity;
-      journeyCol.style.opacity = k;
+      measure();
+      window.addEventListener('resize', measure);
 
-      const arcProgress = clamp01((p-TRANSITION_END)/(1-TRANSITION_END));
-      const statIndex   = Math.min(stats.length-1, Math.floor(arcProgress*stats.length));
-      if(statIndex !== activeStat){
-        const prev = document.getElementById('lcJourneyStat'+activeStat);
-        const next = document.getElementById('lcJourneyStat'+statIndex);
-        if(prev) prev.classList.remove('active');
-        if(next) next.classList.add('active');
-        
-        // Dynamically measure offsets to perfectly center the active text regardless of text wrapping
-        const activeEl = document.getElementById('lcJourneyStat'+statIndex);
-        if(activeEl) {
-          const parentHeight = statsHost.parentElement.offsetHeight;
-          const offset = activeEl.offsetTop - (parentHeight/2) + (activeEl.offsetHeight/2);
-          statsHost.style.transform = `translateY(-${offset}px)`;
-        }
-        
-        activeStat = statIndex;
-      }
-      requestAnimationFrame(renderLoop);
-    }
-    
-    requestAnimationFrame(renderLoop);
+      let activeStat = -1;
+      let targetProgress = 0;
+      let currentProgress = 0;
 
-    // Wait for GSAP/ScrollTrigger to be ready
-    window.addEventListener('load', () => {
-      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        ScrollTrigger.create({
-          trigger: '#ringSection',
-          start: 'top top',
-          end: 'bottom bottom',
-          pin: '#lcRingViewport',
-          pinSpacing: false,
-          onUpdate: self => { targetProgress = self.progress; }
+      function renderLoop() {
+        currentProgress = lerp(currentProgress, targetProgress, 0.08);
+        const p = clamp01(currentProgress);
+
+        railFill.style.height = (p * 100).toFixed(1) + '%';
+
+        const assembleT = easeInOutCubic(clamp01(p / ASSEMBLE_END));
+        const k = easeInOutCubic(clamp01((p - TRANSITION_START) / (TRANSITION_END - TRANSITION_START)));
+        const spinDeg = p <= ASSEMBLE_END ? 0 : (p - ASSEMBLE_END) / (1 - ASSEMBLE_END) * TOTAL_SPIN_DEG;
+        const ax = k, ay = 1 - k;
+        const R = lerp(RING_RADIUS, ARC_RADIUS, k);
+        const arcShrink = lerp(1, 0.82, k);
+
+        stage.style.transform = `translateX(${lerp(0, LEFT_OFFSET, k)}px)`;
+
+        let frontIndex = 0, frontMinAngle = 361;
+
+        cards.forEach((el, i) => {
+          const baseAngle = (360 / N) * i;
+          const theta = baseAngle + spinDeg;
+          const normalized = ((theta % 360) + 360) % 360;
+          const facing = Math.cos(normalized * Math.PI / 180);
+
+          if (p <= ASSEMBLE_END || assembleT < 1) {
+            const s = scatter[i];
+            const x = lerp(s.x, 0, assembleT);
+            const y = lerp(s.y, 0, assembleT);
+            const rotY = lerp(0, theta, assembleT);
+            const rotZ = lerp(s.rz, 0, assembleT);
+            const zOffset = lerp(0, RING_RADIUS * CARD_SCALE, assembleT);
+            const scale = lerp(0.72 * CARD_SCALE, CARD_SCALE, assembleT);
+            el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${zOffset}px) scale(${scale})`;
+          } else {
+            el.style.transform = `rotate3d(${ax},${ay},0,${theta}deg) translateZ(${R * CARD_SCALE}px) scale(${arcShrink * CARD_SCALE})`;
+          }
+
+          const dim = lerp(1, 0.35 + facing * 0.45, assembleT);
+          // Fade in the cards as they assemble (start invisible at p=0)
+          const baseOpacity = Math.min(1, assembleT * 3);
+          el.style.opacity = clamp01(dim + 0.55) * baseOpacity;
+          if (window.innerWidth > 900) {
+            el.style.filter = `brightness(${lerp(1, 0.7 + facing * 0.3, assembleT)})`;
+          }
+          el.style.zIndex = Math.round(facing * 100);
+
+          const distFromFront = Math.min(normalized, 360 - normalized);
+          if (distFromFront < frontMinAngle) { frontMinAngle = distFromFront; frontIndex = i; }
         });
-        targetProgress = 0;
-      }
-    });
 
-  })();
+        const captionOpacity = Math.min(1, Math.max(0, (assembleT - 0.6) / 0.15)) * (1 - k);
+        if (captionOpacity > 0.02) {
+          const proj = projects[frontIndex];
+          if (captionTitle.textContent !== proj.title) {
+            captionTitle.style.opacity = 0; captionSub.style.opacity = 0;
+            setTimeout(() => {
+              captionTitle.textContent = proj.title;
+              captionSub.textContent = proj.sub;
+              captionIndex.textContent = String(frontIndex + 1).padStart(2, '0') + ' / ' + String(N).padStart(2, '0');
+              captionTitle.style.opacity = 1; captionSub.style.opacity = 1;
+            }, 100);
+          }
+        }
+        captionEl.style.opacity = captionOpacity;
+        journeyCol.style.opacity = k;
+
+        const arcProgress = clamp01((p - TRANSITION_END) / (1 - TRANSITION_END));
+        const statIndex = Math.min(stats.length - 1, Math.floor(arcProgress * stats.length));
+        if (statIndex !== activeStat) {
+          const prev = document.getElementById('lcJourneyStat' + activeStat);
+          const next = document.getElementById('lcJourneyStat' + statIndex);
+          if (prev) prev.classList.remove('active');
+          if (next) next.classList.add('active');
+
+          // Dynamically measure offsets to perfectly center the active text regardless of text wrapping
+          const activeEl = document.getElementById('lcJourneyStat' + statIndex);
+          if (activeEl) {
+            const parentHeight = statsHost.parentElement.offsetHeight;
+            const offset = activeEl.offsetTop - (parentHeight / 2) + (activeEl.offsetHeight / 2);
+            statsHost.style.transform = `translateY(-${offset}px)`;
+          }
+
+          activeStat = statIndex;
+        }
+        requestAnimationFrame(renderLoop);
+      }
+
+      requestAnimationFrame(renderLoop);
+
+      // Wait for GSAP/ScrollTrigger to be ready
+      window.addEventListener('load', () => {
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.create({
+            trigger: '#ringSection',
+            start: 'top top',
+            end: 'bottom bottom',
+            pin: '#lcRingViewport',
+            pinSpacing: false,
+            onUpdate: self => { targetProgress = self.progress; }
+          });
+          targetProgress = 0;
+        }
+      });
+
+    })();
   </script>
 
 
@@ -841,190 +936,190 @@
 
   <!-- ════════════ HERO FRAME ANIMATION ════════════ -->
   <script>
-  (function () {
-    'use strict';
+    (function () {
+      'use strict';
 
-    /* ── Config ── */
-    const TOTAL_FRAMES = 240;
-    const framePath = i =>
-      `https://cdn.jsdelivr.net/gh/pankajvshnv/Linear_Concept@a75ba03/animation/FRAME/frame_${String(i).padStart(3, '0')}.avif`;
+      /* ── Config ── */
+      const TOTAL_FRAMES = 240;
+      const framePath = i =>
+        `https://cdn.jsdelivr.net/gh/pankajvshnv/Linear_Concept@a75ba03/animation/FRAME/frame_${String(i).padStart(3, '0')}.avif`;
 
-    /* ── DOM refs ── */
-    const canvas = document.getElementById('hero-canvas');
-    const ctx    = canvas.getContext('2d');
-    const loadEl = document.getElementById('hero-frame-loading');
-    const fillEl = document.getElementById('hero-loading-fill');
-    const pctEl  = document.getElementById('hero-loading-pct');
+      /* ── DOM refs ── */
+      const canvas = document.getElementById('hero-canvas');
+      const ctx = canvas.getContext('2d');
+      const loadEl = document.getElementById('hero-frame-loading');
+      const fillEl = document.getElementById('hero-loading-fill');
+      const pctEl = document.getElementById('hero-loading-pct');
 
-    /* ── State ── */
-    const images      = new Array(TOTAL_FRAMES).fill(null);
-    let   loadedCount = 0;
-    let   targetFrame = 0;   // frame we WANT to show (updated on scroll)
-    let   drawnFrame  = -1;  // frame last painted to canvas
-    let   rafRunning  = false;
-    let   isScrollInitialized = false;
+      /* ── State ── */
+      const images = new Array(TOTAL_FRAMES).fill(null);
+      let loadedCount = 0;
+      let targetFrame = 0;   // frame we WANT to show (updated on scroll)
+      let drawnFrame = -1;  // frame last painted to canvas
+      let rafRunning = false;
+      let isScrollInitialized = false;
 
-    /* ── Size canvas to cover the viewport ── */
-    function resizeCanvas() {
-      canvas.width  = window.innerWidth;
-      canvas.height = window.innerHeight;
-      drawnFrame = -1; // force redraw after resize
-      scheduleRaf();
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
+      /* ── Size canvas to cover the viewport ── */
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        drawnFrame = -1; // force redraw after resize
+        scheduleRaf();
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
 
-    /* ── Cover-fit draw ── */
-    function paintFrame(index) {
-      const img = images[index];
-      if (!img) return false;
-      const iw = img.naturalWidth,  ih = img.naturalHeight;
-      const cw = canvas.width,      ch = canvas.height;
-      const scale = Math.max(cw / iw, ch / ih);
-      const dw = iw * scale, dh = ih * scale;
-      const dx = (cw - dw) / 2,    dy = (ch - dh) / 2;
-      ctx.clearRect(0, 0, cw, ch);
-      ctx.drawImage(img, dx, dy, dw, dh);
-      return true;
-    }
+      /* ── Cover-fit draw ── */
+      function paintFrame(index) {
+        const img = images[index];
+        if (!img) return false;
+        const iw = img.naturalWidth, ih = img.naturalHeight;
+        const cw = canvas.width, ch = canvas.height;
+        const scale = Math.max(cw / iw, ch / ih);
+        const dw = iw * scale, dh = ih * scale;
+        const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
+        ctx.clearRect(0, 0, cw, ch);
+        ctx.drawImage(img, dx, dy, dw, dh);
+        return true;
+      }
 
-    /* ── Single rAF loop — only paints when frame has changed ── */
-    function scheduleRaf() {
-      if (rafRunning) return;
-      rafRunning = true;
-      requestAnimationFrame(function tick() {
-        if (targetFrame !== drawnFrame) {
-          // Walk toward targetFrame, skipping nulls gracefully
-          const painted = paintFrame(targetFrame);
-          if (painted) {
-            drawnFrame = targetFrame;
-            canvas.classList.add('ready');
+      /* ── Single rAF loop — only paints when frame has changed ── */
+      function scheduleRaf() {
+        if (rafRunning) return;
+        rafRunning = true;
+        requestAnimationFrame(function tick() {
+          if (targetFrame !== drawnFrame) {
+            // Walk toward targetFrame, skipping nulls gracefully
+            const painted = paintFrame(targetFrame);
+            if (painted) {
+              drawnFrame = targetFrame;
+              canvas.classList.add('ready');
+            }
           }
-        }
-        rafRunning = false;
-        // If still dirty, re-queue
-        if (targetFrame !== drawnFrame) scheduleRaf();
-      });
-    }
-
-    /* ── Map scroll position → frame index ── */
-    function updateFrameFromScroll(scrollY) {
-      const zone  = document.getElementById('hero-scroll-zone');
-      if (!zone) return;
-      const zoneTop    = zone.getBoundingClientRect().top + scrollY;
-      const zoneHeight = zone.offsetHeight - window.innerHeight;
-      if (zoneHeight <= 0) return;
-      const progress = Math.max(0, Math.min(1, (scrollY - zoneTop) / zoneHeight));
-      targetFrame = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
-      scheduleRaf();
-    }
-
-    /* ── Frame loading ── */
-    function onFrameSettled(index, img) {
-      loadedCount++;
-      const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
-      if (fillEl) fillEl.style.width = pct + '%';
-      if (pctEl) pctEl.textContent  = pct + '%';
-
-      // Draw frame 0 as soon as the first image arrives
-      if (index === 0 && img) scheduleRaf();
-
-      // Hide the loader early so the user isn't blocked.
-      // Since it's loading in the background, we can hide it when the first batch is ready.
-      if (loadedCount >= 25 || loadedCount === TOTAL_FRAMES) {
-        if (typeof window.unlockMainLoader === 'function') {
-          window.unlockMainLoader();
-          window.unlockMainLoader = null; // Ensure it only runs once
-        }
-        if (loadEl && loadEl.style.opacity !== '0') {
-          loadEl.style.opacity = '0';
-          setTimeout(() => { loadEl.style.display = 'none'; }, 600);
-        }
-      }
-    }
-
-    // Load images in batches to prevent network congestion
-    const BATCH_SIZE = 15;
-    let currentBatch = 0;
-
-    function loadNextBatch() {
-      const start = currentBatch * BATCH_SIZE;
-      const end = Math.min(start + BATCH_SIZE, TOTAL_FRAMES);
-      
-      if (start >= TOTAL_FRAMES) return;
-
-      let batchLoaded = 0;
-      const totalInBatch = end - start;
-
-      for (let i = start; i < end; i++) {
-        const img = new Image();
-        img.decoding = 'async'; // Non-blocking decode
-        const idx = i;
-        
-        const onloadOrErr = () => {
-          batchLoaded++;
-          if (batchLoaded === totalInBatch) {
-            currentBatch++;
-            loadNextBatch(); // load next batch
-          }
-        };
-
-        img.onload  = () => { 
-          images[idx] = img; 
-          onFrameSettled(idx, img); 
-          onloadOrErr();
-        };
-        img.onerror = () => { 
-          onFrameSettled(idx, null); 
-          onloadOrErr();
-        };
-        img.src = framePath(i + 1);
-      }
-    }
-
-    /* ── Init: pin hero with GSAP, scrub frames via Lenis scroll event ── */
-    function initScrollAnimation() {
-      if (isScrollInitialized) return;
-      isScrollInitialized = true;
-      
-      const zone = document.getElementById('hero-scroll-zone');
-
-      // ── Lenis: listen for scroll events → instant frame update ──
-      function attachScrollListener() {
-        if (window.__lenis) {
-          window.__lenis.on('scroll', ({ scroll }) => {
-            updateFrameFromScroll(scroll);
-          });
-        } else {
-          window.addEventListener('scroll', () => {
-            updateFrameFromScroll(window.scrollY);
-          }, { passive: true });
-        }
-      }
-
-      // ── GSAP ScrollTrigger: ONLY used for pinning ──
-      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        ScrollTrigger.create({
-          trigger:    zone,
-          start:      'top top',
-          end:        'bottom bottom',
-          pin:        '#hero',
-          pinSpacing: false,
+          rafRunning = false;
+          // If still dirty, re-queue
+          if (targetFrame !== drawnFrame) scheduleRaf();
         });
-        ScrollTrigger.refresh();
       }
 
-      attachScrollListener();
-      updateFrameFromScroll(window.scrollY);
-    }
+      /* ── Map scroll position → frame index ── */
+      function updateFrameFromScroll(scrollY) {
+        const zone = document.getElementById('hero-scroll-zone');
+        if (!zone) return;
+        const zoneTop = zone.getBoundingClientRect().top + scrollY;
+        const zoneHeight = zone.offsetHeight - window.innerHeight;
+        if (zoneHeight <= 0) return;
+        const progress = Math.max(0, Math.min(1, (scrollY - zoneTop) / zoneHeight));
+        targetFrame = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
+        scheduleRaf();
+      }
 
-    // Initialize ScrollTrigger immediately on DOMContentLoaded so layout doesn't jump
-    document.addEventListener('DOMContentLoaded', initScrollAnimation);
-    
-    // Start downloading the frames instantly while the preloader is shown
-    loadNextBatch();
+      /* ── Frame loading ── */
+      function onFrameSettled(index, img) {
+        loadedCount++;
+        const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+        if (fillEl) fillEl.style.width = pct + '%';
+        if (pctEl) pctEl.textContent = pct + '%';
 
-  })();
+        // Draw frame 0 as soon as the first image arrives
+        if (index === 0 && img) scheduleRaf();
+
+        // Hide the loader early so the user isn't blocked.
+        // Since it's loading in the background, we can hide it when the first batch is ready.
+        if (loadedCount >= 25 || loadedCount === TOTAL_FRAMES) {
+          if (typeof window.unlockMainLoader === 'function') {
+            window.unlockMainLoader();
+            window.unlockMainLoader = null; // Ensure it only runs once
+          }
+          if (loadEl && loadEl.style.opacity !== '0') {
+            loadEl.style.opacity = '0';
+            setTimeout(() => { loadEl.style.display = 'none'; }, 600);
+          }
+        }
+      }
+
+      // Load images in batches to prevent network congestion
+      const BATCH_SIZE = 15;
+      let currentBatch = 0;
+
+      function loadNextBatch() {
+        const start = currentBatch * BATCH_SIZE;
+        const end = Math.min(start + BATCH_SIZE, TOTAL_FRAMES);
+
+        if (start >= TOTAL_FRAMES) return;
+
+        let batchLoaded = 0;
+        const totalInBatch = end - start;
+
+        for (let i = start; i < end; i++) {
+          const img = new Image();
+          img.decoding = 'async'; // Non-blocking decode
+          const idx = i;
+
+          const onloadOrErr = () => {
+            batchLoaded++;
+            if (batchLoaded === totalInBatch) {
+              currentBatch++;
+              loadNextBatch(); // load next batch
+            }
+          };
+
+          img.onload = () => {
+            images[idx] = img;
+            onFrameSettled(idx, img);
+            onloadOrErr();
+          };
+          img.onerror = () => {
+            onFrameSettled(idx, null);
+            onloadOrErr();
+          };
+          img.src = framePath(i + 1);
+        }
+      }
+
+      /* ── Init: pin hero with GSAP, scrub frames via Lenis scroll event ── */
+      function initScrollAnimation() {
+        if (isScrollInitialized) return;
+        isScrollInitialized = true;
+
+        const zone = document.getElementById('hero-scroll-zone');
+
+        // ── Lenis: listen for scroll events → instant frame update ──
+        function attachScrollListener() {
+          if (window.__lenis) {
+            window.__lenis.on('scroll', ({ scroll }) => {
+              updateFrameFromScroll(scroll);
+            });
+          } else {
+            window.addEventListener('scroll', () => {
+              updateFrameFromScroll(window.scrollY);
+            }, { passive: true });
+          }
+        }
+
+        // ── GSAP ScrollTrigger: ONLY used for pinning ──
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.create({
+            trigger: zone,
+            start: 'top top',
+            end: 'bottom bottom',
+            pin: '#hero',
+            pinSpacing: false,
+          });
+          ScrollTrigger.refresh();
+        }
+
+        attachScrollListener();
+        updateFrameFromScroll(window.scrollY);
+      }
+
+      // Initialize ScrollTrigger immediately on DOMContentLoaded so layout doesn't jump
+      document.addEventListener('DOMContentLoaded', initScrollAnimation);
+
+      // Start downloading the frames instantly while the preloader is shown
+      loadNextBatch();
+
+    })();
   </script>
 </body>
 
