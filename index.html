@@ -138,7 +138,7 @@
 
     <div class="projects-header">
       <h2 class="projects-title">Spaces That Inspire.<br><em>Projects That Last.</em></h2>
-      <div class="projects-count">04 Projects</div>
+      <div class="projects-count">03 Projects</div>
     </div>
 
     <div class="gallery-track" id="gallery-track">
@@ -187,10 +187,10 @@
       <div class="project-card">
         <span class="project-card-number">004</span>
         <div class="project-card-image">
-          <img src="images/project-cultural.png" alt="The Pavilion cultural project">
+          <img src="images/project-cultural.png" alt="Aura cultural project">
         </div>
         <div class="project-card-info">
-          <div class="project-card-name">The Pavilion</div>
+          <div class="project-card-name">Aura</div>
           <div class="project-card-meta">
             <span class="project-card-location">Mumbai</span>
             <span class="project-card-year">Cultural</span>
@@ -594,8 +594,9 @@
           const y = lerp(s.y, 0, assembleT);
           const rotY = lerp(0, theta, assembleT);
           const rotZ = lerp(s.rz, 0, assembleT);
+          const zOffset = lerp(0, RING_RADIUS*CARD_SCALE, assembleT);
           const scale = lerp(0.72*CARD_SCALE, CARD_SCALE, assembleT);
-          el.style.transform = `translate3d(${x}px,${y}px,${lerp(0,-RING_RADIUS*CARD_SCALE,assembleT)}px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${RING_RADIUS*CARD_SCALE}px) scale(${scale})`;
+          el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${zOffset}px) scale(${scale})`;
         } else {
           el.style.transform = `rotate3d(${ax},${ay},0,${theta}deg) translateZ(${R*CARD_SCALE}px) scale(${arcShrink*CARD_SCALE})`;
         }
