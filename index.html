@@ -1020,13 +1020,8 @@
     // Initialize ScrollTrigger immediately on DOMContentLoaded so layout doesn't jump
     document.addEventListener('DOMContentLoaded', initScrollAnimation);
     
-    // Defer the heavy frame loading until after the main window load event
-    // This allows the master preloader to finish quickly and the page to become interactive
-    if (document.readyState === 'complete') {
-      setTimeout(loadNextBatch, 100);
-    } else {
-      window.addEventListener('load', () => setTimeout(loadNextBatch, 100));
-    }
+    // Start downloading the frames instantly while the preloader is shown
+    loadNextBatch();
 
   })();
   </script>
