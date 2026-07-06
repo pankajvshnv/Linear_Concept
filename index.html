@@ -57,6 +57,7 @@
       <a href="#about" class="nav-link" data-section="about">About Us</a>
       <a href="#projects" class="nav-link" data-section="projects">Projects</a>
       <a href="#services" class="nav-link" data-section="services">Services</a>
+      <a href="#contact" class="nav-link mobile-only-cta" data-section="contact">Contact Us</a>
     </nav>
     
     <div class="nav-right">
@@ -353,7 +354,7 @@
     }
     .lc-ring-caption{
       position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);
-      z-index:5; text-align:center; pointer-events:none;
+      z-index:0; text-align:center; pointer-events:none;
       width:min(90vw, 520px);
     }
     .lc-ring-caption .lc-index{
@@ -458,12 +459,13 @@
   <section class="lc-ring-section" id="ringSection">
     <div class="lc-ring-viewport" id="lcRingViewport">
       <div class="lc-ring-perspective">
-        <div class="lc-ring-stage" id="lcRingStage"></div>
-      </div>
-      <div class="lc-ring-caption" id="lcRingCaption">
-        <div class="lc-index">01 / 10</div>
-        <h2 id="lcCaptionTitle">Facades</h2>
-        <p id="lcCaptionSub">Hospitality, Delhi, 2022</p>
+        <div class="lc-ring-stage" id="lcRingStage">
+          <div class="lc-ring-caption" id="lcRingCaption">
+            <div class="lc-index">01 / 10</div>
+            <h2 id="lcCaptionTitle">Facades</h2>
+            <p id="lcCaptionSub">Hospitality, Delhi, 2022</p>
+          </div>
+        </div>
       </div>
       <div class="lc-journey-text-col" id="lcJourneyTextCol">
         <span class="lc-journey-eyebrow">By the numbers</span>
