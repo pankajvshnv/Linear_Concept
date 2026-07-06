@@ -693,15 +693,20 @@
       let LEFT_OFFSET = 0;
       let CARD_SCALE = 1;
       let IS_DESKTOP = true;
+      let FLAT_RADIUS = 800;
+      
       function measure() {
         const w = window.innerWidth;
+        const h = window.innerHeight;
         IS_DESKTOP = w > 900;
         if (!IS_DESKTOP) {
           LEFT_OFFSET = 0;
           CARD_SCALE = 0.65;
+          FLAT_RADIUS = Math.max(400, Math.max(w, h) * 0.45);
         } else {
           LEFT_OFFSET = -w * 0.27;
           CARD_SCALE = 1;
+          FLAT_RADIUS = Math.max(750, Math.max(w, h) * 0.55);
         }
       }
       measure();
@@ -769,7 +774,7 @@
             const currentAxisY = lerp(ay, 0, flatT);
             const currentAxisZ = lerp(0, 1, flatT);
             
-            const currentTransY = lerp(0, -R * CARD_SCALE * 1.35, flatT);
+            const currentTransY = lerp(0, -FLAT_RADIUS, flatT);
             const currentTransZ = lerp(R * CARD_SCALE, 0, flatT);
             const currentScale = lerp(arcShrink * CARD_SCALE, CARD_SCALE * 0.8, flatT);
 
