@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frame Animation</title>
+  <style>
+    body {
+      margin: 0;
+      height: 300vh;
+      /* Allow scrolling */
+      background: #000;
+    }
+
+    .animation-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 100vh;
+      object-fit: contain;
+    }
+
+    #loading {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: sans-serif;
+      font-size: 24px;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="loading">Loading Frames... 0%</div>
+
+  <div class="animation-container">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+
+  <script>
+    const totalFrames = 240;
+    // Using the jsDelivr CDN — hero-v2: compressed frames (CRF 55, ~28KB each)
+    const framePath = i => `https://cdn.jsdelivr.net/gh/pankajvshnv/test@hero-v2/Downloads/Picflow%20Images%20Jul%203/FRAME/frame_${String(i).padStart(3, '0')}.avif`;
+
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    const images = new Array(totalFrames).fill(null);
+    let loadedCount = 0;
+    let canvasSizeSet = false;
+    const loadingText = document.getElementById('loading');
+
+    function onFrameSettled(i, img) {
+      loadedCount++;
+      loadingText.innerText = `Loading Frames... ${Math.round((loadedCount / totalFrames) * 100)}%`;
+
+      // Set canvas size from the first successfully loaded image
+      if (img && img.naturalWidth && !canvasSizeSet) {
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        canvasSizeSet = true;
+        drawFrame(0);
+      }
+
+      if (loadedCount === totalFrames) {
+        loadingText.style.display = 'none';
+        drawFrame(0);
+      }
+    }
+
+    // Preload all frames
+    for (let i = 1; i <= totalFrames; i++) {
+      const img = new Image();
+      const idx = i - 1;
+      img.onload = () => {
+        images[idx] = img;
+        onFrameSettled(i, img);
+      };
+      img.onerror = () => {
+        // Frame is missing (e.g. 208, 224) — don't block loading
+        images[idx] = null;
+        onFrameSettled(i, null);
+      };
+      img.src = framePath(i);
+    }
+
+    function drawFrame(index) {
+      const img = images[index];
+      if (!img || !canvasSizeSet) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+
+    // Tie animation to scroll position
+    window.addEventListener('scroll', () => {
+      const scrollFraction = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      const frameIndex = Math.min(totalFrames - 1, Math.floor(scrollFraction * totalFrames));
+      requestAnimationFrame(() => drawFrame(frameIndex));
+    });
+  </script>
+
+</body>
+
+</html>
