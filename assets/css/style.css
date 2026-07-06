@@ -428,8 +428,8 @@
     }
     .hero-headline em {
       font-style: italic;
+      color: #ccdb00;
       font-weight: 400;
-      color: var(--moss);
     }
     .hero-foot {
       display: flex; justify-content: space-between; align-items: flex-end;
