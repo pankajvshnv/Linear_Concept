@@ -604,7 +604,6 @@
 
   <script>
     (function () {
-      const projects = [
         { title: "Facades", sub: "Hospitality · Delhi · 2022", img: "https://www.linearconcepts.in/images/projects/details/facades/facades-10.jpg" },
         { title: "Micasa", sub: "Luxury Residential · Gurugram · 2021", img: "https://www.linearconcepts.in/images/projects/details/micasa/micasa-07.jpg" },
         { title: "Satyasheel", sub: "Corporate · Noida · 2020", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-01.jpg" },
@@ -614,7 +613,14 @@
         { title: "Meridian Atrium", sub: "Mixed-use · natural ventilation", img: "https://picsum.photos/id/1074/600/800" },
         { title: "Salt Marsh Retreat", sub: "Elevated timber frame · 2016", img: "https://picsum.photos/id/1016/600/800" },
         { title: "Copper Roof Atelier", sub: "Standing-seam copper · 2015", img: "https://picsum.photos/id/1035/600/800" },
-        { title: "Basalt Courtyard", sub: "Volcanic stone facade · 2014", img: "https://picsum.photos/id/1041/600/800" }
+        { title: "Basalt Courtyard", sub: "Volcanic stone facade · 2014", img: "https://picsum.photos/id/1041/600/800" },
+        { title: "Alpine Retreat", sub: "Residential · 2018", img: "https://picsum.photos/id/1015/600/800" },
+        { title: "Glass Pavilion", sub: "Exhibition · 2017", img: "https://picsum.photos/id/1025/600/800" },
+        { title: "Timber Cabin", sub: "Hospitality · 2019", img: "https://picsum.photos/id/1036/600/800" },
+        { title: "Concrete Villa", sub: "Residential · 2020", img: "https://picsum.photos/id/1040/600/800" },
+        { title: "Urban Loft", sub: "Interior · 2021", img: "https://picsum.photos/id/1043/600/800" },
+        { title: "Lakeside House", sub: "Residential · 2016", img: "https://picsum.photos/id/1047/600/800" },
+        { title: "Desert Oasis", sub: "Hospitality · 2022", img: "https://picsum.photos/id/1050/600/800" }
       ];
 
       const stats = [
@@ -649,13 +655,15 @@
       const railEl = document.getElementById('lcProgressRail');
       const flatCaption = document.getElementById('lcFlatCaption');
 
-      const scatter = [
-        { x: -520, y: -260, rz: -14 }, { x: 520, y: -260, rz: 10 },
-        { x: -560, y: 60, rz: 8 }, { x: 560, y: 40, rz: -11 },
-        { x: -480, y: 300, rz: 16 }, { x: 500, y: 310, rz: -8 },
-        { x: -220, y: -360, rz: 6 }, { x: 220, y: 370, rz: -6 },
-        { x: 0, y: -430, rz: 4 }, { x: 0, y: 430, rz: -4 }
-      ];
+      const scatter = projects.map((_, i) => {
+        const angle = (i / projects.length) * Math.PI * 2 + (Math.random() - 0.5);
+        const radius = 350 + Math.random() * 250;
+        return {
+          x: Math.cos(angle) * radius,
+          y: Math.sin(angle) * radius,
+          rz: (Math.random() - 0.5) * 40
+        };
+      });
 
       const cards = projects.map((p) => {
         const el = document.createElement('div');
@@ -772,6 +780,14 @@
           const arcOpacity = clamp01(dim + 0.55) * baseOpacity;
           
           el.style.opacity = lerp(arcOpacity, 1, flatT) * finalOpacity;
+          
+          // Morph rectangular card (190x250) into a square (190x190) by clipping top/bottom 30px
+          const clipY = lerp(0, 30, flatT);
+          el.style.clipPath = `inset(${clipY}px 0 ${clipY}px 0 round 3px)`;
+
+          // Fade out the text tag during flat phase
+          const tag = el.querySelector('.lc-tag');
+          if (tag) tag.style.opacity = 1 - flatT;
           
           if (IS_DESKTOP) {
             if (flatT > 0) {
