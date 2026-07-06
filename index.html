@@ -781,9 +781,12 @@
           
           el.style.opacity = lerp(arcOpacity, 1, flatT) * finalOpacity;
           
-          // Morph rectangular card (190x250) into a square (190x190) by clipping top/bottom 30px
-          const clipY = lerp(0, 30, flatT);
-          el.style.clipPath = `inset(${clipY}px 0 ${clipY}px 0 round 3px)`;
+          // Morph rectangular card (190x250) into a square (190x190)
+          // Animating height/marginTop is safer than clip-path which breaks 3D transforms in Safari
+          const currentHeight = lerp(250, 190, flatT);
+          const currentMarginTop = lerp(-125, -95, flatT);
+          el.style.height = `${currentHeight}px`;
+          el.style.marginTop = `${currentMarginTop}px`;
 
           // Fade out the text tag during flat phase
           const tag = el.querySelector('.lc-tag');
