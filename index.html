@@ -733,9 +733,9 @@
         const flatSpinT = p <= FLAT_START ? 0 : easeInOutCubic(clamp01((p - FLAT_START) / (1 - FLAT_START)));
         const flatSpin = flatSpinT * 35; // Minimal smooth ease-in effect for the flat circle
         
-        const ax = k, ay = 1 - k;
-        const R = lerp(RING_RADIUS, ARC_RADIUS, k);
-        const arcShrink = lerp(1, 0.82, k);
+        const ax = 0, ay = 1 - k, az = k;
+        const radiusAtK = lerp(RING_RADIUS, ARC_RADIUS, k);
+        const finalRadius = lerp(radiusAtK, FLAT_RADIUS, flatT);
 
         const currentOffsetX = lerp(lerp(0, LEFT_OFFSET, k), 0, flatT);
         stage.style.transform = `translateX(${currentOffsetX}px)`;
@@ -772,13 +772,13 @@
             const scale = lerp(0.72 * CARD_SCALE, CARD_SCALE, assembleT);
             el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${zOffset}px) scale(${scale})`;
           } else {
-            const currentAxisX = lerp(ax, 0, flatT);
-            const currentAxisY = lerp(ay, 0, flatT);
-            const currentAxisZ = lerp(0, 1, flatT);
+            const currentAxisX = ax;
+            const currentAxisY = ay;
+            const currentAxisZ = az;
             
-            const currentTransY = lerp(0, -FLAT_RADIUS, flatT);
-            const currentTransZ = lerp(R * CARD_SCALE, 0, flatT);
-            const currentScale = lerp(arcShrink * CARD_SCALE, CARD_SCALE * 0.8, flatT);
+            const currentTransY = lerp(0, -finalRadius * CARD_SCALE, k);
+            const currentTransZ = lerp(RING_RADIUS * CARD_SCALE, 0, k);
+            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.8, flatT);
 
             el.style.transform = `rotate3d(${currentAxisX},${currentAxisY},${currentAxisZ},${theta}deg) translate3d(0px, ${currentTransY}px, ${currentTransZ}px) scale(${currentScale})`;
           }
