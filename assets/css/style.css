@@ -509,24 +509,32 @@
       height: 100vh;
       display: flex;
       align-items: center;
+      justify-content: center;
     }
 
     .about-statement {
-      font-family: var(--ff-display);
-      font-weight: 400;
-      font-style: italic;
-      font-size: clamp(28px, 4.6vw, 58px);
-      line-height: 1.25;
-      max-width: 1180px;
+      font-family: var(--ff-body);
+      font-weight: 300;
+      font-size: clamp(16px, 2vw, 24px);
+      line-height: 1.7;
+      max-width: 800px;
+      text-align: center;
+      margin: 0 auto;
+      color: var(--paper);
+    }
+
+    .about-statement .word-mask {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      padding-bottom: 0.1em;
+      margin-bottom: -0.1em;
     }
 
     .about-statement .word {
-      opacity: 0.18;
-      transition: opacity 0.2s;
-    }
-
-    .about-statement .word.active {
-      opacity: 1;
+      display: inline-block;
+      transform-origin: bottom center;
+      will-change: transform, opacity, filter;
     }
 
     .stat-strip {

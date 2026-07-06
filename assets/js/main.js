@@ -255,23 +255,35 @@
       // ─── About: Pinned Word-by-Word Reveal ───
       const statEl = document.getElementById('aboutText');
       const aboutWords = statEl.textContent.trim().split(/\s+/);
-      statEl.innerHTML = aboutWords.map(w => `<span class="word">${w} </span>`).join('');
+      
+      // Wrap words in a mask for elegant translation reveal
+      statEl.innerHTML = aboutWords.map(w => `<span class="word-mask"><span class="word">${w}</span></span> `).join('');
       const wordSpans = statEl.querySelectorAll('.word');
 
-      ScrollTrigger.create({
-        trigger: '.about-pin',
-        start: 'top top',
-        end: '+=120%',
-        pin: true,
-        scrub: 1,
-        onUpdate: self => {
-          const progress = self.progress;
-          const activeCount = Math.floor(progress * wordSpans.length);
-          wordSpans.forEach((w, i) => {
-            w.classList.toggle('active', i < activeCount);
-          });
+      // Create a scrubbed animation that staggers the reveal
+      gsap.fromTo(wordSpans, 
+        { 
+          opacity: 0, 
+          yPercent: 100,
+          rotationX: -20,
+          filter: 'blur(10px)'
+        },
+        {
+          opacity: 1,
+          yPercent: 0,
+          rotationX: 0,
+          filter: 'blur(0px)',
+          stagger: 0.05,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.about-pin',
+            start: 'top top',
+            end: '+=150%',
+            pin: true,
+            scrub: 1
+          }
         }
-      });
+      );
 
       // ─── Stats Counter ───
       gsap.utils.toArray('.stat-number').forEach(stat => {
