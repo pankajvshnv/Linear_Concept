@@ -497,7 +497,7 @@
       document.body.style.overflow = '';
     }
 
-    window.addEventListener('load', () => {
+    window.unlockMainLoader = function() {
       if (prefersReduced) {
         hideLoaderHard();
         initPage();
@@ -505,7 +505,10 @@
         runLoader();
       }
       if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-    });
+    };
+
+    // Remove the old load listener that triggered it immediately
+    // window.addEventListener('load', () => { ... });
 
     // Safety net: preloader gone within 5s no matter what
     setTimeout(hideLoaderHard, 5000);

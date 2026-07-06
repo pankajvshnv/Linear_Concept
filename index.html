@@ -928,7 +928,11 @@
 
       // Hide the loader early so the user isn't blocked.
       // Since it's loading in the background, we can hide it when the first batch is ready.
-      if (loadedCount >= 10 || loadedCount === TOTAL_FRAMES) {
+      if (loadedCount >= 25 || loadedCount === TOTAL_FRAMES) {
+        if (typeof window.unlockMainLoader === 'function') {
+          window.unlockMainLoader();
+          window.unlockMainLoader = null; // Ensure it only runs once
+        }
         if (loadEl && loadEl.style.opacity !== '0') {
           loadEl.style.opacity = '0';
           setTimeout(() => { loadEl.style.display = 'none'; }, 600);
