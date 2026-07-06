@@ -235,6 +235,24 @@
         });
       });
 
+      // ─── Generic Reveal Up ───
+      gsap.utils.toArray('.reveal-up').forEach(elem => {
+        gsap.fromTo(elem, 
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1, 
+            y: 0, 
+            duration: 1, 
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: elem,
+              start: 'top 85%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+
       // ─── About Gallery Parallax ───
       const aboutCols = document.querySelectorAll('.about-img-col');
       aboutCols.forEach((col, i) => {
