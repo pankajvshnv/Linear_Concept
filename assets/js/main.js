@@ -217,6 +217,41 @@
         });
       });
 
+      // ─── About Gallery Parallax ───
+      const aboutCols = document.querySelectorAll('.about-img-col');
+      aboutCols.forEach((col, i) => {
+        // Subtle vertical shift on scroll for staggered effect
+        const yOffset = [50, -50, 40, -40][i % 4];
+        gsap.to(col, {
+          y: () => `+=${yOffset}`,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.about-gallery',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        });
+
+        // Image internal parallax
+        const img = col.querySelector('img');
+        if (img) {
+          gsap.fromTo(img, 
+            { yPercent: -15, scale: 1.2 }, 
+            {
+              yPercent: 15,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '.about-gallery',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1
+              }
+            }
+          );
+        }
+      });
+
       // ─── About: Pinned Word-by-Word Reveal ───
       const statEl = document.getElementById('aboutText');
       const aboutWords = statEl.textContent.trim().split(/\s+/);

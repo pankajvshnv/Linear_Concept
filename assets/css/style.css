@@ -444,6 +444,40 @@
       gap: 16px;
     }
 
+    /* ═══════════════════════════════════════════
+       ABOUT GALLERY (STAGGERED IMAGES)
+    ═══════════════════════════════════════════ */
+    .about-gallery {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3vw;
+      padding: 80px 5vw;
+      min-height: 70vh;
+    }
+
+    .about-img-col {
+      flex: 1;
+      max-width: 240px;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    }
+
+    .about-img-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Staggered Heights and Vertical Offsets */
+    .about-img-col:nth-child(1) { height: 320px; transform: translateY(20px); }
+    .about-img-col:nth-child(2) { height: 420px; transform: translateY(-40px); }
+    .about-img-col:nth-child(3) { height: 360px; transform: translateY(40px); }
+    .about-img-col:nth-child(4) { height: 400px; transform: translateY(-20px); }
+
     .section-label::before {
       content: '';
       width: 40px;
