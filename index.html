@@ -585,7 +585,7 @@
         </div>
 
         <div class="lc-flat-caption" id="lcFlatCaption">
-          <h2>38 Years<br>of Legacy</h2>
+          <h2>38 years of<br>legacy</h2>
         </div>
       </div>
       </div>
@@ -703,12 +703,12 @@
           ARC_RADIUS = 600;
           LEFT_OFFSET = -ARC_RADIUS + w * 0.05;
           CARD_SCALE = 0.65;
-          FLAT_RADIUS = Math.max(400, Math.max(w, h) * 0.45);
+          FLAT_RADIUS = Math.max(300, Math.max(w, h) * 0.30); // Cards close in around text
         } else {
           ARC_RADIUS = 1200;
           LEFT_OFFSET = -ARC_RADIUS - w * 0.02; // Position right edge exactly near the stats text
           CARD_SCALE = 1;
-          FLAT_RADIUS = Math.max(750, Math.max(w, h) * 0.55);
+          FLAT_RADIUS = Math.max(550, Math.max(w, h) * 0.40); // Cards close in around text
         }
       }
       measure();
