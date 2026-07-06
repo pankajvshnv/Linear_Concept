@@ -506,10 +506,7 @@
     }
 
     .about-pin {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 40px 5vw 100px;
     }
 
     .about-statement {
