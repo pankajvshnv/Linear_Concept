@@ -683,9 +683,11 @@
 
       let LEFT_OFFSET = 0;
       let CARD_SCALE = 1;
+      let IS_DESKTOP = true;
       function measure() {
         const w = window.innerWidth;
-        if (w < 900) {
+        IS_DESKTOP = w > 900;
+        if (!IS_DESKTOP) {
           LEFT_OFFSET = 0;
           CARD_SCALE = 0.65;
         } else {
@@ -720,11 +722,18 @@
         const currentOffsetX = lerp(lerp(0, LEFT_OFFSET, k), 0, flatT);
         stage.style.transform = `translateX(${currentOffsetX}px)`;
 
+        // Fade out at the very end to prevent sudden unpin cutoff
+        const endFade = easeInOutCubic(clamp01((p - 0.96) / 0.04));
+        const finalOpacity = 1 - endFade;
+
         // Background transition
-        if (flatT > 0.05) {
-          section.querySelector('.lc-ring-viewport').style.backgroundColor = '#000000';
-        } else {
-          section.querySelector('.lc-ring-viewport').style.backgroundColor = '#ffffff';
+        const viewportEl = document.getElementById('lcRingViewport');
+        if (viewportEl) {
+          if (flatT > 0.05 && endFade < 0.5) {
+            viewportEl.style.backgroundColor = '#000000';
+          } else {
+            viewportEl.style.backgroundColor = '#ffffff';
+          }
         }
 
         let frontIndex = 0, frontMinAngle = 361;
@@ -760,11 +769,15 @@
           const baseOpacity = Math.min(1, assembleT * 3);
           const arcOpacity = clamp01(dim + 0.55) * baseOpacity;
           
-          el.style.opacity = lerp(arcOpacity, 1, flatT);
+          el.style.opacity = lerp(arcOpacity, 1, flatT) * finalOpacity;
           
-          if (window.innerWidth > 900) {
-            const brightnessVal = lerp(lerp(1, 0.7 + facing * 0.3, assembleT), 1, flatT);
-            el.style.filter = `brightness(${brightnessVal})`;
+          if (IS_DESKTOP) {
+            if (flatT > 0) {
+              el.style.filter = 'none'; // Disable filter in flat phase to drastically improve performance
+            } else {
+              const brightnessVal = lerp(1, 0.7 + facing * 0.3, assembleT);
+              el.style.filter = `brightness(${brightnessVal})`;
+            }
           }
           el.style.zIndex = Math.round(lerp(facing * 100, 100, flatT));
 
@@ -785,11 +798,11 @@
             }, 100);
           }
         }
-        captionEl.style.opacity = captionOpacity * (1 - flatT);
-        journeyCol.style.opacity = k * (1 - flatT);
-        if(railEl) railEl.style.opacity = (1 - flatT);
+        captionEl.style.opacity = captionOpacity * (1 - flatT) * finalOpacity;
+        journeyCol.style.opacity = k * (1 - flatT) * finalOpacity;
+        if(railEl) railEl.style.opacity = (1 - flatT) * finalOpacity;
 
-        flatCaption.style.opacity = flatT;
+        flatCaption.style.opacity = flatT * finalOpacity;
         flatCaption.style.transform = `translate(-50%, -50%) scale(${lerp(0.9, 1, flatT)})`;
 
         const arcProgress = clamp01((p - TRANSITION_END) / (FLAT_START - TRANSITION_END));
