@@ -314,7 +314,7 @@
   <style>
     /* ---------- RING SECTION SCOPED STYLES ---------- */
     .lc-ring-section {
-      height: 400vh;
+      height: 500vh;
       position: relative;
     }
 
@@ -323,6 +323,7 @@
       height: 100vh;
       overflow: hidden;
       background: #ffffff;
+      transition: background-color 0.8s ease;
     }
 
     .lc-ring-perspective {
@@ -540,6 +541,7 @@
       .lc-ring-caption {
         top: 12vh;
         transform: translate(-50%, 0);
+        width: 85vw;
       }
     }
 
@@ -549,18 +551,43 @@
       position: relative;
       z-index: 1;
     }
+
+    /* Flat Ring Phase Styles */
+    .lc-flat-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+    .lc-flat-caption h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: clamp(40px, 8vw, 90px);
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: #ffffff;
+    }
   </style>
 
-  <section class="lc-ring-section" id="ringSection">
+  <section class="lc-ring-section" id="ringSection" style="height: 500vh;">
     <div class="lc-ring-viewport" id="lcRingViewport">
       <div class="lc-ring-perspective">
         <div class="lc-ring-stage" id="lcRingStage">
           <div class="lc-ring-caption" id="lcRingCaption">
-            <div class="lc-index">01 / 10</div>
-            <h2 id="lcCaptionTitle">Facades</h2>
-            <p id="lcCaptionSub">Hospitality, Delhi, 2022</p>
-          </div>
+          <div class="lc-index">00 / 00</div>
+          <h2 id="lcCaptionTitle">Project</h2>
+          <p id="lcCaptionSub">Location</p>
         </div>
+
+        <div class="lc-flat-caption" id="lcFlatCaption">
+          <h2>38 Years<br>of Legacy</h2>
+        </div>
+      </div>
       </div>
       <div class="lc-journey-text-col" id="lcJourneyTextCol">
         <span class="lc-journey-eyebrow">By the numbers</span>
@@ -569,7 +596,7 @@
         </div>
         <div class="lc-journey-dots" id="lcJourneyDots"></div>
       </div>
-      <div class="lc-progress-rail">
+      <div class="lc-progress-rail" id="lcProgressRail">
         <div class="lc-fill" id="lcRailFill"></div>
       </div>
     </div>
@@ -615,7 +642,12 @@
       const ASSEMBLE_END = 0.14;
       const TRANSITION_START = 0.40;
       const TRANSITION_END = 0.58;
+      const FLAT_START = 0.80;
+      const FLAT_END = 0.90;
       const TOTAL_SPIN_DEG = 360;
+
+      const railEl = document.getElementById('lcProgressRail');
+      const flatCaption = document.getElementById('lcFlatCaption');
 
       const scatter = [
         { x: -520, y: -260, rz: -14 }, { x: 520, y: -260, rz: 10 },
@@ -676,18 +708,30 @@
 
         const assembleT = easeInOutCubic(clamp01(p / ASSEMBLE_END));
         const k = easeInOutCubic(clamp01((p - TRANSITION_START) / (TRANSITION_END - TRANSITION_START)));
+        const flatT = easeInOutCubic(clamp01((p - FLAT_START) / (FLAT_END - FLAT_START)));
+        
         const spinDeg = p <= ASSEMBLE_END ? 0 : (p - ASSEMBLE_END) / (1 - ASSEMBLE_END) * TOTAL_SPIN_DEG;
+        const flatSpin = p <= FLAT_START ? 0 : (p - FLAT_START) / (1 - FLAT_START) * 180;
+        
         const ax = k, ay = 1 - k;
         const R = lerp(RING_RADIUS, ARC_RADIUS, k);
         const arcShrink = lerp(1, 0.82, k);
 
-        stage.style.transform = `translateX(${lerp(0, LEFT_OFFSET, k)}px)`;
+        const currentOffsetX = lerp(lerp(0, LEFT_OFFSET, k), 0, flatT);
+        stage.style.transform = `translateX(${currentOffsetX}px)`;
+
+        // Background transition
+        if (flatT > 0.05) {
+          section.querySelector('.lc-ring-viewport').style.backgroundColor = '#000000';
+        } else {
+          section.querySelector('.lc-ring-viewport').style.backgroundColor = '#ffffff';
+        }
 
         let frontIndex = 0, frontMinAngle = 361;
 
         cards.forEach((el, i) => {
           const baseAngle = (360 / N) * i;
-          const theta = baseAngle + spinDeg;
+          const theta = baseAngle + spinDeg + flatSpin;
           const normalized = ((theta % 360) + 360) % 360;
           const facing = Math.cos(normalized * Math.PI / 180);
 
@@ -701,17 +745,28 @@
             const scale = lerp(0.72 * CARD_SCALE, CARD_SCALE, assembleT);
             el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${zOffset}px) scale(${scale})`;
           } else {
-            el.style.transform = `rotate3d(${ax},${ay},0,${theta}deg) translateZ(${R * CARD_SCALE}px) scale(${arcShrink * CARD_SCALE})`;
+            const currentAxisX = lerp(ax, 0, flatT);
+            const currentAxisY = lerp(ay, 0, flatT);
+            const currentAxisZ = lerp(0, 1, flatT);
+            
+            const currentTransY = lerp(0, -R * CARD_SCALE * 1.35, flatT);
+            const currentTransZ = lerp(R * CARD_SCALE, 0, flatT);
+            const currentScale = lerp(arcShrink * CARD_SCALE, CARD_SCALE * 0.8, flatT);
+
+            el.style.transform = `rotate3d(${currentAxisX},${currentAxisY},${currentAxisZ},${theta}deg) translate3d(0px, ${currentTransY}px, ${currentTransZ}px) scale(${currentScale})`;
           }
 
           const dim = lerp(1, 0.35 + facing * 0.45, assembleT);
-          // Fade in the cards as they assemble (start invisible at p=0)
           const baseOpacity = Math.min(1, assembleT * 3);
-          el.style.opacity = clamp01(dim + 0.55) * baseOpacity;
+          const arcOpacity = clamp01(dim + 0.55) * baseOpacity;
+          
+          el.style.opacity = lerp(arcOpacity, 1, flatT);
+          
           if (window.innerWidth > 900) {
-            el.style.filter = `brightness(${lerp(1, 0.7 + facing * 0.3, assembleT)})`;
+            const brightnessVal = lerp(lerp(1, 0.7 + facing * 0.3, assembleT), 1, flatT);
+            el.style.filter = `brightness(${brightnessVal})`;
           }
-          el.style.zIndex = Math.round(facing * 100);
+          el.style.zIndex = Math.round(lerp(facing * 100, 100, flatT));
 
           const distFromFront = Math.min(normalized, 360 - normalized);
           if (distFromFront < frontMinAngle) { frontMinAngle = distFromFront; frontIndex = i; }
@@ -730,10 +785,14 @@
             }, 100);
           }
         }
-        captionEl.style.opacity = captionOpacity;
-        journeyCol.style.opacity = k;
+        captionEl.style.opacity = captionOpacity * (1 - flatT);
+        journeyCol.style.opacity = k * (1 - flatT);
+        if(railEl) railEl.style.opacity = (1 - flatT);
 
-        const arcProgress = clamp01((p - TRANSITION_END) / (1 - TRANSITION_END));
+        flatCaption.style.opacity = flatT;
+        flatCaption.style.transform = `translate(-50%, -50%) scale(${lerp(0.9, 1, flatT)})`;
+
+        const arcProgress = clamp01((p - TRANSITION_END) / (FLAT_START - TRANSITION_END));
         const statIndex = Math.min(stats.length - 1, Math.floor(arcProgress * stats.length));
         if (statIndex !== activeStat) {
           const prev = document.getElementById('lcJourneyStat' + activeStat);
