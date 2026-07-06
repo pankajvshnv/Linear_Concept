@@ -134,85 +134,88 @@
       position: fixed;
       top: 0;
       left: 0;
-      transform: none;
-      z-index: 9995;
-      
       width: 100%;
-      max-width: 100%;
-      height: 70px;
-      display: flex;
+      height: 80px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       padding: 0 40px;
-  
       background: #ffffff;
-      border: none;
-      border-bottom: 1px solid rgba(0,0,0,.1);
-  
-      border-radius: 0;
-  
-      box-shadow: 0 4px 20px rgba(0,0,0,.08);
-
-      opacity: 0;
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      z-index: 9995;
+      opacity: 0; /* for the GSAP preloader animation */
       pointer-events: none;
       transition: opacity 0.4s ease;
     }
+
     .logo{
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-  
-      background: rgba(0,0,0,.04);
-      border: 1px solid rgba(0,0,0,.1);
-  
+      font-family: var(--ff-display);
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: #000;
-      font-size: 18px;
     }
   
-    .navbar nav{
+    .nav-links {
       display: flex;
-      gap: 30px;
+      gap: 32px;
     }
   
-    .navbar nav a{
+    .nav-links a {
+      position: relative;
       text-decoration: none;
-      color: #000;
+      color: #333;
       font-size: 13px;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      transition: .3s;
-    }
-  
-    .navbar nav a:hover{
-      opacity:.7;
+      letter-spacing: 0.1em;
+      transition: color 0.3s;
     }
 
-    .navbar nav a.active {
-      opacity: 0.5;
+    .nav-links a:hover, .nav-links a.active {
+      color: #000;
     }
-  
+
+    /* Subtle underline hover effect */
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+    }
+
     .cta{
       text-decoration: none;
       color: #fff;
-      padding: 12px 24px;
-      font-size: 12px;
+      padding: 12px 28px;
+      font-size: 11px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-  
+      letter-spacing: 0.1em;
       background: #000;
       border: 1px solid #000;
-  
-      border-radius: 999px;
+      border-radius: 4px;
       transition: .3s;
     }
   
     .cta:hover{
-      background: #333;
-      border-color: #333;
+      background: #fff;
+      color: #000;
     }
   
     .hamburger {
@@ -229,20 +232,19 @@
       transition: 0.3s;
     }
 
-    .nav-links-wrap {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-
     @media(max-width:1100px){
-      .navbar{
-          padding: 0 24px;
+      .navbar {
+        grid-template-columns: 1fr auto;
+        padding: 0 24px;
+        height: 70px;
       }
       .hamburger {
         display: flex;
       }
-      .nav-links-wrap {
+      .nav-right {
+        gap: 20px;
+      }
+      .nav-links {
         position: absolute;
         top: 100%;
         left: 0;
@@ -250,25 +252,20 @@
         background: #ffffff;
         flex-direction: column;
         padding: 30px;
-        gap: 20px;
-        border-radius: 20px;
-        border: 1px solid rgba(0,0,0,.1);
-        box-shadow: 0 10px 30px rgba(0,0,0,.1);
+        gap: 24px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        box-shadow: 0 10px 30px rgba(0,0,0,.05);
         opacity: 0;
         visibility: hidden;
         transform: translateY(-10px);
         transition: 0.4s ease;
       }
-      .navbar.nav-open .nav-links-wrap {
+      .navbar.nav-open .nav-links {
         opacity: 1;
         visibility: visible;
         transform: translateY(10px);
       }
-      .navbar nav{
-          flex-direction: column;
-          align-items: center;
-          gap: 20px;
-      }
+
       .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .hamburger.active span:nth-child(2) { opacity: 0; }
       .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
