@@ -137,7 +137,7 @@
       transform: translateX(-50%);
       width: 95%;
       max-width: 1200px;
-      height: 70px;
+      height: 56px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
@@ -205,7 +205,7 @@
     .cta{
       text-decoration: none;
       color: #fff;
-      padding: 12px 28px;
+      padding: 10px 24px;
       font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
@@ -239,7 +239,7 @@
       .navbar {
         grid-template-columns: 1fr auto;
         padding: 0 24px;
-        height: 70px;
+        height: 56px;
       }
       .hamburger {
         display: flex;
