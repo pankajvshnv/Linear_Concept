@@ -315,7 +315,7 @@
     }
     .lc-ring-viewport{
       position:relative; height:100vh; overflow:hidden;
-      background:var(--bg, #0a0a09);
+      background: #ffffff;
     }
     .lc-ring-perspective{
       position:absolute; inset:0;
@@ -334,7 +334,8 @@
       border-radius:3px;
       overflow:hidden;
       background:#111110;
-      box-shadow:0 30px 60px -20px rgba(0,0,0,0.7);
+      background:#ffffff;
+      box-shadow:0 30px 60px -20px rgba(0,0,0,0.2);
       will-change:transform, opacity, filter;
       backface-visibility:hidden;
     }
@@ -346,7 +347,7 @@
       position:absolute; left:0; right:0; bottom:0;
       padding:10px 12px 9px;
       font-size:10.5px; letter-spacing:0.05em; text-transform:uppercase;
-      color:#efe9dd;
+      color:#ffffff;
       background:linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
       font-family:'Inter', sans-serif;
     }
@@ -361,18 +362,18 @@
     }
     .lc-ring-caption h2{
       font-family:'Fraunces', serif; font-weight:300; font-size:clamp(28px, 4vw, 46px);
-      letter-spacing:-0.01em; transition:opacity 0.25s ease; color:#efe9dd;
+      letter-spacing:-0.01em; transition:opacity 0.25s ease; color:#111111;
     }
     .lc-ring-caption p{
-      margin-top:12px; font-size:13.5px; color:#8f8b80; line-height:1.6;
+      margin-top:12px; font-size:13.5px; color:#555555; line-height:1.6;
       font-family:'Inter', sans-serif;
     }
     .lc-progress-rail{
       position:absolute; right:36px; top:50%; transform:translateY(-50%); z-index:40;
-      width:1px; height:160px; background:rgba(239,233,221,0.14);
+      width:1px; height:160px; background:rgba(0,0,0,0.1);
       display:flex; align-items:flex-end;
     }
-    .lc-progress-rail .lc-fill{width:100%; background:#c69a5b; height:0%;}
+    .lc-progress-rail .lc-fill{width:100%; background:#111; height:0%;}
     .lc-journey-text-col{
       position:absolute; top:50%; right:6vw; transform:translateY(-50%);
       width:min(40vw, 500px);
@@ -380,7 +381,7 @@
       will-change:opacity;
     }
     .lc-journey-eyebrow{
-      font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#c69a5b;
+      font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#555;
       display:block; margin-bottom:30px; font-family:'Inter', sans-serif;
     }
     .lc-journey-stats{ 
@@ -407,11 +408,11 @@
     }
     .lc-journey-stat .lc-value{
       font-family:'Inter', sans-serif; font-weight:300; line-height:1;
-      font-size:clamp(60px, 7vw, 120px); color:#efe9dd;
+      font-size:clamp(60px, 7vw, 120px); color:#111;
       letter-spacing:-0.03em;
     }
     .lc-journey-stat .lc-label{
-      margin-top:12px; font-size:clamp(26px, 3vw, 46px); color:#efe9dd; max-width:460px; line-height:1.05;
+      margin-top:12px; font-size:clamp(26px, 3vw, 46px); color:#111; max-width:460px; line-height:1.05;
       font-family:'Fraunces', serif; font-weight:300;
       letter-spacing:-0.02em;
     }
