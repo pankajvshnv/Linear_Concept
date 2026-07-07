@@ -350,13 +350,20 @@
       width: 190px;
       height: 250px;
       margin: -125px 0 0 -95px;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+    }
+    
+    .lc-card-inner {
+      position: absolute;
+      inset: 0;
       border-radius: 3px;
-      overflow: hidden;
-      background: #111110;
       background: #ffffff;
       box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.2);
-      will-change: transform, opacity, filter;
-      backface-visibility: hidden;
+      overflow: hidden;
+      clip-path: inset(0px 0px round 3px);
+      will-change: clip-path;
     }
 
     .lc-card img {
@@ -669,7 +676,7 @@
       const cards = projects.map((p) => {
         const el = document.createElement('div');
         el.className = 'lc-card';
-        el.innerHTML = `<img src="${p.img}" alt="${p.title}" loading="lazy"><div class="lc-tag">${p.title}</div>`;
+        el.innerHTML = `<div class="lc-card-inner"><img src="${p.img}" alt="${p.title}" loading="lazy"><div class="lc-tag">${p.title}</div></div>`;
         stage.appendChild(el);
         return el;
       });
@@ -787,15 +794,11 @@
           
           el.style.opacity = lerp(arcOpacity, 1, flatT);
           
-          // Morph rectangular card (190x250) into a square (190x190)
-          // Avoid triggering layout thrashing when flatT === 0 for smooth performance
-          if (flatT > 0) {
-            el.style.height = `${lerp(250, 190, flatT)}px`;
-            el.style.marginTop = `${lerp(-125, -95, flatT)}px`;
-          } else if (!el._heightSet) {
-            el.style.height = `250px`;
-            el.style.marginTop = `-125px`;
-            el._heightSet = true;
+          // Morph rectangular card (190x250) into a square (190x190) via fast inner clip-path
+          const inner = el.querySelector('.lc-card-inner');
+          if (inner) {
+            const clipY = lerp(0, 30, flatT);
+            inner.style.clipPath = `inset(${clipY}px 0px round 3px)`;
           }
 
           // Fade out the text tag during flat phase
