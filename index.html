@@ -684,7 +684,7 @@
       const N = projects.length;
       const RING_RADIUS = 460;
       let ARC_RADIUS = 320;
-      const ASSEMBLE_END = 0.32; // Significantly lengthened so cards snake in smoothly
+      const ASSEMBLE_END = 0.20; // Re-adjusted for a faster, tighter entrance without white space delay
       const TRANSITION_START = 0.40;
       const TRANSITION_END = 0.58;
       const FLAT_START = 0.80;
@@ -798,13 +798,13 @@
             const linearProgress = 1 - assembleT; 
             const progress = Math.pow(linearProgress, 1.2); // Ease-out flavor
             
-            // Stagger heavily (0.18) so they enter one-by-one
-            const offsetProgress = (progress * 2.5) + (i * 0.18 * progress);
-            const pathT = clamp01(offsetProgress / 2.5);
+            // Tightened stagger (0.08) so they enter quickly one-by-one without trailing too far behind
+            const offsetProgress = (progress * 1.5) + (i * 0.08 * progress);
+            const pathT = clamp01(offsetProgress / 1.5);
             
             const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
-            // Negative X means they start from the LEFT side
-            const x = -offsetProgress * (w * 0.5); 
+            // Negative X means they start from the LEFT side, starting closer to the screen edge (w*0.6)
+            const x = -offsetProgress * (w * 0.6); 
             
             // Weave up and down
             const y = Math.sin(offsetProgress * Math.PI * 2) * 350; 
