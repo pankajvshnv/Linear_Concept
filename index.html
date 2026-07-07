@@ -730,12 +730,12 @@
         const h = window.innerHeight;
         IS_DESKTOP = w > 900;
         if (!IS_DESKTOP) {
-          ARC_RADIUS = 600;
+          ARC_RADIUS = 450; // Reduced so cards are closer
           LEFT_OFFSET = -ARC_RADIUS + w * 0.05;
           CARD_SCALE = 0.65;
           FLAT_RADIUS = Math.max(300, Math.max(w, h) * 0.30); // Cards close in around text
         } else {
-          ARC_RADIUS = 1200;
+          ARC_RADIUS = 850; // Reduced from 1200 so cards cluster much closer together
           LEFT_OFFSET = -ARC_RADIUS - w * 0.02; // Position right edge exactly near the stats text
           CARD_SCALE = 1;
           FLAT_RADIUS = Math.max(550, Math.max(w, h) * 0.40); // Cards close in around text
