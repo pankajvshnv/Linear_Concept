@@ -574,10 +574,37 @@
     .lc-flat-caption h2 {
       font-family: 'Fraunces', serif;
       font-weight: 300;
-      font-size: clamp(40px, 8vw, 90px);
+      font-size: clamp(50px, 9vw, 140px);
       letter-spacing: -0.02em;
-      line-height: 1.05;
+      line-height: 1.0;
       color: #ffffff;
+      margin-bottom: 50px;
+    }
+
+    .lc-flat-caption-cols {
+      display: flex;
+      gap: 60px;
+      text-align: left;
+      justify-content: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .lc-flat-caption-cols p {
+      flex: 1;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(12px, 1.2vw, 15px);
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    @media (max-width: 768px) {
+      .lc-flat-caption-cols {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
     }
   </style>
 
@@ -592,7 +619,11 @@
         </div>
 
         <div class="lc-flat-caption" id="lcFlatCaption">
-          <h2>38 years of<br>legacy</h2>
+          <h2>38 Years<br>of Legacy</h2>
+          <div class="lc-flat-caption-cols">
+            <p>Design approach grounded in timeless aesthetics,<br>material logic, and unparalleled craftsmanship.</p>
+            <p>Lifecycle-focused architecture with efficient systems,<br>sustainable choices, and long-term value.</p>
+          </div>
         </div>
       </div>
       </div>
@@ -663,23 +694,7 @@
       const railEl = document.getElementById('lcProgressRail');
       const flatCaption = document.getElementById('lcFlatCaption');
 
-      const scatter = projects.map((_, i) => {
-        const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
-        // Start from the right edge and trail further right
-        const xBase = (w / 2) + 400; 
-        const spacingX = 200;
-        const x = xBase + (i * spacingX);
-        
-        // Sine wave pattern
-        const freq = 0.45;
-        const amplitude = 350;
-        const y = Math.sin(i * freq) * amplitude;
-        
-        // Tilt to follow the wave slope
-        const rz = Math.cos(i * freq) * 30; 
-        
-        return { x, y, rz };
-      });
+      // Scatter array removed - animation now uses dynamic 3D pathing in renderLoop
 
       const cards = projects.map((p) => {
         const el = document.createElement('div');
@@ -776,14 +791,30 @@
           const facing = Math.cos(normalized * Math.PI / 180);
 
           if (p <= ASSEMBLE_END || assembleT < 1) {
-            const s = scatter[i];
-            const x = lerp(s.x, 0, assembleT);
-            const y = lerp(s.y, 0, assembleT);
-            const rotY = lerp(0, theta, assembleT);
-            const rotZ = lerp(s.rz, 0, assembleT);
-            const zOffset = lerp(0, RING_RADIUS * CARD_SCALE, assembleT);
-            const scale = lerp(0.72 * CARD_SCALE, CARD_SCALE, assembleT);
-            el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${zOffset}px) scale(${scale})`;
+            // True 3D Snake Entrance
+            const progress = 1 - assembleT; 
+            
+            // i * 0.15 spaces the cards out along the tail
+            const offsetProgress = (progress * 2.5) + (i * 0.15 * progress);
+            const pathT = clamp01(offsetProgress / 2.5);
+            
+            const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
+            const x = offsetProgress * (w * 0.5); // Spread them out far to the right
+            const y = Math.sin(offsetProgress * Math.PI * 2) * 350; // Weave up and down
+            const zOff = Math.sin(offsetProgress * Math.PI * 1.5) * 400; // Weave in and out
+            
+            const slope = Math.cos(offsetProgress * Math.PI * 2);
+            const rotZ = lerp(0, slope * 20, pathT); // Tilt to match wave slope
+            
+            // Face leftwards (-40 deg) while slithering, blend to theta
+            const rotY = lerp(theta, -40, pathT); 
+            
+            const finalZ = RING_RADIUS * CARD_SCALE;
+            const currentZ = lerp(finalZ, finalZ + zOff, pathT);
+            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.5, pathT);
+            
+            el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${currentZ}px) scale(${currentScale})`;
+
           } else {
             const currentAxisX = ax;
             const currentAxisY = ay;
