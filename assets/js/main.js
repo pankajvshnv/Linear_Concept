@@ -128,8 +128,8 @@
       if (prefersReduced) return;
 
       lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        duration: 2.0, // Slower scrolling as requested
+        easing: (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2), // Ease-in-out
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,

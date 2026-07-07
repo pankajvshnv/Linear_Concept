@@ -572,7 +572,7 @@
       will-change: opacity, transform;
     }
     .lc-flat-caption h2 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Inter', sans-serif;
       font-weight: 300;
       font-size: clamp(50px, 9vw, 140px);
       letter-spacing: -0.02em;
@@ -749,7 +749,7 @@
       let currentProgress = 0;
 
       function renderLoop() {
-        currentProgress = lerp(currentProgress, targetProgress, 0.08);
+        currentProgress = lerp(currentProgress, targetProgress, 0.05); // Slower, smoother damping
         const p = clamp01(currentProgress);
 
         railFill.style.height = (p * 100).toFixed(1) + '%';
