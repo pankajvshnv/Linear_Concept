@@ -793,32 +793,34 @@
           const facing = Math.cos(normalized * Math.PI / 180);
 
           if (p <= ASSEMBLE_END || assembleT < 1) {
-            // Elegant Ease-Out Slide Entrance
-            // assembleT goes 0->1 using easeInOutCubic
-            const progress = 1 - assembleT; // 1 = far away, 0 = in ring
+            // Left-to-Middle 3D Snake Entrance
+            // Use an ease-out style progress so the snake shoots in and slows down
+            const linearProgress = 1 - assembleT; 
+            const progress = Math.pow(linearProgress, 1.2); // Ease-out flavor
             
-            // Stagger based on distance from center card so they form an expanding wave
-            const stagger = Math.abs(i - N/2) / (N/2);
-            // Ensure they all finish sliding exactly when progress = 0
-            const slideT = clamp01(progress * (1 + stagger * 0.5));
+            // Stagger heavily (0.18) so they enter one-by-one
+            const offsetProgress = (progress * 2.5) + (i * 0.18 * progress);
+            const pathT = clamp01(offsetProgress / 2.5);
             
-            // Start from the bottom (y=800) and spread out horizontally
-            const startX = (i - N/2) * 80;
-            const startY = 800 + (stagger * 200); 
+            const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
+            // Negative X means they start from the LEFT side
+            const x = -offsetProgress * (w * 0.5); 
             
-            const x = startX * slideT;
-            const y = startY * slideT;
+            // Weave up and down
+            const y = Math.sin(offsetProgress * Math.PI * 2) * 350; 
+            // Weave in and out of the screen
+            const zOff = Math.sin(offsetProgress * Math.PI * 1.5) * 400; 
             
-            // They start facing forward (rotY=0) and gracefully spin out into their ring angles (theta)
-            const rotY = lerp(0, theta, assembleT);
-            // Slight dramatic tilt when they slide in
-            const rotZ = lerp(stagger * 25 * (i > N/2 ? -1 : 1), 0, assembleT); 
+            // Tilt along the wave
+            const slope = Math.cos(offsetProgress * Math.PI * 2);
+            const rotZ = lerp(0, -slope * 20, pathT); 
+            
+            // Face rightwards (+40 deg) while slithering from the left, blend to final ring angle
+            const rotY = lerp(theta, 40, pathT); 
             
             const finalZ = RING_RADIUS * CARD_SCALE;
-            // They come from slightly behind
-            const currentZ = lerp(finalZ - 300, finalZ, assembleT);
-            
-            const currentScale = lerp(CARD_SCALE * 0.5, CARD_SCALE, assembleT);
+            const currentZ = lerp(finalZ, finalZ + zOff, pathT);
+            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.5, pathT);
             
             el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${currentZ}px) scale(${currentScale})`;
 
