@@ -749,7 +749,7 @@
       let currentProgress = 0;
 
       function renderLoop() {
-        currentProgress = lerp(currentProgress, targetProgress, 0.05); // Slower, smoother damping
+        currentProgress = lerp(currentProgress, targetProgress, 0.08); // Restored to 0.08 for snappy response
         const p = clamp01(currentProgress);
 
         railFill.style.height = (p * 100).toFixed(1) + '%';
