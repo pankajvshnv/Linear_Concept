@@ -689,7 +689,7 @@
       const TRANSITION_END = 0.58;
       const FLAT_START = 0.80;
       const FLAT_END = 0.90;
-      const TOTAL_SPIN_DEG = 540;
+      const TOTAL_SPIN_DEG = 270; // Reduced rotation speed (3/4 of a turn instead of 1.5)
 
       const railEl = document.getElementById('lcProgressRail');
       const flatCaption = document.getElementById('lcFlatCaption');
@@ -758,7 +758,9 @@
         const k = easeInOutCubic(clamp01((p - TRANSITION_START) / (TRANSITION_END - TRANSITION_START)));
         const flatT = easeInOutCubic(clamp01((p - FLAT_START) / (FLAT_END - FLAT_START)));
         
-        const spinDeg = p <= ASSEMBLE_END ? 0 : (p - ASSEMBLE_END) / (1 - ASSEMBLE_END) * TOTAL_SPIN_DEG;
+        const spinProgress = p <= ASSEMBLE_END ? 0 : clamp01((p - ASSEMBLE_END) / (1 - ASSEMBLE_END));
+        const spinEaseOut = 1 - Math.pow(1 - spinProgress, 3); // Ease-out curve for rotation speed
+        const spinDeg = spinEaseOut * TOTAL_SPIN_DEG;
         
         const flatSpinT = p <= FLAT_START ? 0 : easeInOutCubic(clamp01((p - FLAT_START) / (1 - FLAT_START)));
         const flatSpin = flatSpinT * 35; // Minimal smooth ease-in effect for the flat circle
@@ -791,27 +793,32 @@
           const facing = Math.cos(normalized * Math.PI / 180);
 
           if (p <= ASSEMBLE_END || assembleT < 1) {
-            // True 3D Snake Entrance
-            const progress = 1 - assembleT; 
+            // Elegant Ease-Out Slide Entrance
+            // assembleT goes 0->1 using easeInOutCubic
+            const progress = 1 - assembleT; // 1 = far away, 0 = in ring
             
-            // i * 0.15 spaces the cards out along the tail
-            const offsetProgress = (progress * 2.5) + (i * 0.15 * progress);
-            const pathT = clamp01(offsetProgress / 2.5);
+            // Stagger based on distance from center card so they form an expanding wave
+            const stagger = Math.abs(i - N/2) / (N/2);
+            // Ensure they all finish sliding exactly when progress = 0
+            const slideT = clamp01(progress * (1 + stagger * 0.5));
             
-            const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
-            const x = offsetProgress * (w * 0.5); // Spread them out far to the right
-            const y = Math.sin(offsetProgress * Math.PI * 2) * 350; // Weave up and down
-            const zOff = Math.sin(offsetProgress * Math.PI * 1.5) * 400; // Weave in and out
+            // Start from the bottom (y=800) and spread out horizontally
+            const startX = (i - N/2) * 80;
+            const startY = 800 + (stagger * 200); 
             
-            const slope = Math.cos(offsetProgress * Math.PI * 2);
-            const rotZ = lerp(0, slope * 20, pathT); // Tilt to match wave slope
+            const x = startX * slideT;
+            const y = startY * slideT;
             
-            // Face leftwards (-40 deg) while slithering, blend to theta
-            const rotY = lerp(theta, -40, pathT); 
+            // They start facing forward (rotY=0) and gracefully spin out into their ring angles (theta)
+            const rotY = lerp(0, theta, assembleT);
+            // Slight dramatic tilt when they slide in
+            const rotZ = lerp(stagger * 25 * (i > N/2 ? -1 : 1), 0, assembleT); 
             
             const finalZ = RING_RADIUS * CARD_SCALE;
-            const currentZ = lerp(finalZ, finalZ + zOff, pathT);
-            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.5, pathT);
+            // They come from slightly behind
+            const currentZ = lerp(finalZ - 300, finalZ, assembleT);
+            
+            const currentScale = lerp(CARD_SCALE * 0.5, CARD_SCALE, assembleT);
             
             el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${currentZ}px) scale(${currentScale})`;
 
