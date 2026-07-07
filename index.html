@@ -740,9 +740,8 @@
         const currentOffsetX = lerp(lerp(0, LEFT_OFFSET, k), 0, flatT);
         stage.style.transform = `translateX(${currentOffsetX}px)`;
 
-        // Fade out at the very end to prevent sudden unpin cutoff
-        const endFade = easeInOutCubic(clamp01((p - 0.96) / 0.04));
-        const finalOpacity = 1 - endFade;
+        // Removed endFade per user request so the section scrolls up naturally
+        const finalOpacity = 1;
 
         // Background transition
         const viewportEl = document.getElementById('lcRingViewport');
@@ -784,7 +783,7 @@
           }
 
           const dim = lerp(1, 0.35 + facing * 0.45, assembleT);
-          const baseOpacity = Math.min(1, assembleT * 3);
+          const baseOpacity = 1; // Removed fade-in at the beginning per user request
           const arcOpacity = clamp01(dim + 0.55) * baseOpacity;
           
           el.style.opacity = lerp(arcOpacity, 1, flatT) * finalOpacity;
