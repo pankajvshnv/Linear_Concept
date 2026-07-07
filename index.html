@@ -740,13 +740,12 @@
         const currentOffsetX = lerp(lerp(0, LEFT_OFFSET, k), 0, flatT);
         stage.style.transform = `translateX(${currentOffsetX}px)`;
 
-        // Removed endFade per user request so the section scrolls up naturally
-        const finalOpacity = 1;
+        // Removed endFade per user request - section will naturally scroll up when unpinned
 
         // Background transition
         const viewportEl = document.getElementById('lcRingViewport');
         if (viewportEl) {
-          if (flatT > 0.05 && endFade < 0.5) {
+          if (flatT > 0.05) {
             viewportEl.style.backgroundColor = '#000000';
           } else {
             viewportEl.style.backgroundColor = '#ffffff';
@@ -783,30 +782,26 @@
           }
 
           const dim = lerp(1, 0.35 + facing * 0.45, assembleT);
-          const baseOpacity = 1; // Removed fade-in at the beginning per user request
+          const baseOpacity = Math.min(1, assembleT * 3);
           const arcOpacity = clamp01(dim + 0.55) * baseOpacity;
           
-          el.style.opacity = lerp(arcOpacity, 1, flatT) * finalOpacity;
+          el.style.opacity = lerp(arcOpacity, 1, flatT);
           
           // Morph rectangular card (190x250) into a square (190x190)
-          // Animating height/marginTop is safer than clip-path which breaks 3D transforms in Safari
-          const currentHeight = lerp(250, 190, flatT);
-          const currentMarginTop = lerp(-125, -95, flatT);
-          el.style.height = `${currentHeight}px`;
-          el.style.marginTop = `${currentMarginTop}px`;
+          // Avoid triggering layout thrashing when flatT === 0 for smooth performance
+          if (flatT > 0) {
+            el.style.height = `${lerp(250, 190, flatT)}px`;
+            el.style.marginTop = `${lerp(-125, -95, flatT)}px`;
+          } else if (!el._heightSet) {
+            el.style.height = `250px`;
+            el.style.marginTop = `-125px`;
+            el._heightSet = true;
+          }
 
           // Fade out the text tag during flat phase
           const tag = el.querySelector('.lc-tag');
           if (tag) tag.style.opacity = 1 - flatT;
           
-          if (IS_DESKTOP) {
-            if (flatT > 0) {
-              el.style.filter = 'none'; // Disable filter in flat phase to drastically improve performance
-            } else {
-              const brightnessVal = lerp(1, 0.7 + facing * 0.3, assembleT);
-              el.style.filter = `brightness(${brightnessVal})`;
-            }
-          }
           el.style.zIndex = Math.round(lerp(facing * 100, 100, flatT));
 
           const distFromFront = Math.min(normalized, 360 - normalized);
@@ -826,11 +821,11 @@
             }, 100);
           }
         }
-        captionEl.style.opacity = captionOpacity * (1 - flatT) * finalOpacity;
-        journeyCol.style.opacity = k * (1 - flatT) * finalOpacity;
-        if(railEl) railEl.style.opacity = (1 - flatT) * finalOpacity;
+        captionEl.style.opacity = captionOpacity * (1 - flatT);
+        journeyCol.style.opacity = k * (1 - flatT);
+        if(railEl) railEl.style.opacity = (1 - flatT);
 
-        flatCaption.style.opacity = flatT * finalOpacity;
+        flatCaption.style.opacity = flatT;
         flatCaption.style.transform = `translate(-50%, -50%) scale(${lerp(0.9, 1, flatT)})`;
 
         const arcProgress = clamp01((p - TRANSITION_END) / (FLAT_START - TRANSITION_END));
