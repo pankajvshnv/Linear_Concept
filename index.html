@@ -664,13 +664,21 @@
       const flatCaption = document.getElementById('lcFlatCaption');
 
       const scatter = projects.map((_, i) => {
-        const angle = (i / projects.length) * Math.PI * 2 + (Math.random() - 0.5);
-        const radius = 350 + Math.random() * 250;
-        return {
-          x: Math.cos(angle) * radius,
-          y: Math.sin(angle) * radius,
-          rz: (Math.random() - 0.5) * 40
-        };
+        const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
+        // Start from the right edge and trail further right
+        const xBase = (w / 2) + 400; 
+        const spacingX = 200;
+        const x = xBase + (i * spacingX);
+        
+        // Sine wave pattern
+        const freq = 0.45;
+        const amplitude = 350;
+        const y = Math.sin(i * freq) * amplitude;
+        
+        // Tilt to follow the wave slope
+        const rz = Math.cos(i * freq) * 30; 
+        
+        return { x, y, rz };
       });
 
       const cards = projects.map((p) => {
