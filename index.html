@@ -798,19 +798,22 @@
             // Cinematic Spiral Descent
             // Starts from top in helical formation, moving downward and converging to center
             const linearProgress = 1 - assembleT; 
-            const progress = Math.pow(linearProgress, 1.2); 
+            // Removed ease-out so cards appear immediately without delay
+            const progress = linearProgress; 
             
-            // Stagger for continuous spiral flow
-            const offsetProgress = (progress * 1.5) + (i * 0.08 * progress);
-            const pathT = clamp01(offsetProgress / 1.5);
+            // Tighten the stagger so they enter quickly and densely
+            const offsetProgress = progress + (i * 0.04 * progress);
+            const pathT = clamp01(offsetProgress);
             
-            // y starts high up (negative) and spirals down to 0
-            const y = -offsetProgress * 1500; 
+            const h = typeof window !== 'undefined' ? window.innerHeight : 1080;
+            // y starts just off the top of the screen to prevent blank white space delay
+            const startY = -(h / 2) - 300; 
+            const y = offsetProgress * startY; 
             
-            // x and z form a converging spiral (radius starts at 800 and shrinks to 0)
-            const spiralRadius = offsetProgress * 800;
-            const x = Math.sin(offsetProgress * Math.PI * 4) * spiralRadius;
-            const zOff = Math.cos(offsetProgress * Math.PI * 4) * spiralRadius;
+            // Converging spiral: radius starts at 600 and shrinks to 0
+            const spiralRadius = offsetProgress * 600;
+            const x = Math.sin(offsetProgress * Math.PI * 6) * spiralRadius; // 3 full loops
+            const zOff = Math.cos(offsetProgress * Math.PI * 6) * spiralRadius;
             
             // Rotate rapidly around Y and Z while spiraling
             const rotY = lerp(theta, theta + offsetProgress * 720, pathT); 
