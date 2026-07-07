@@ -776,7 +776,7 @@
     ═══════════════════════════════════════════ */
     .services {
       position: relative;
-      padding: 160px 48px 120px;
+      padding: 160px 48px 40px; /* Reduced bottom spacing for smooth transition */
       background: var(--ink);
       color: var(--paper);
     }

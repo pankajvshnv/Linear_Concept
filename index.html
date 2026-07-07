@@ -682,7 +682,7 @@
       const dotsHost = document.getElementById('lcJourneyDots');
 
       const N = projects.length;
-      const RING_RADIUS = 460;
+      let RING_RADIUS = 750; // Increased base radius so there is enough space between cards
       let ARC_RADIUS = 320;
       const ASSEMBLE_END = 0.20; // Re-adjusted for a faster, tighter entrance without white space delay
       const TRANSITION_START = 0.40;
@@ -730,11 +730,13 @@
         const h = window.innerHeight;
         IS_DESKTOP = w > 900;
         if (!IS_DESKTOP) {
+          RING_RADIUS = 350; // Smaller ring for mobile
           ARC_RADIUS = 450; // Reduced so cards are closer
           LEFT_OFFSET = -ARC_RADIUS + w * 0.05;
           CARD_SCALE = 0.65;
           FLAT_RADIUS = Math.max(300, Math.max(w, h) * 0.30); // Cards close in around text
         } else {
+          RING_RADIUS = 750; // Increased so there is enough space between each card
           ARC_RADIUS = 850; // Reduced from 1200 so cards cluster much closer together
           LEFT_OFFSET = -ARC_RADIUS - w * 0.02; // Position right edge exactly near the stats text
           CARD_SCALE = 1;
@@ -793,34 +795,32 @@
           const facing = Math.cos(normalized * Math.PI / 180);
 
           if (p <= ASSEMBLE_END || assembleT < 1) {
-            // Left-to-Middle 3D Snake Entrance
-            // Use an ease-out style progress so the snake shoots in and slows down
+            // Cinematic Spiral Descent
+            // Starts from top in helical formation, moving downward and converging to center
             const linearProgress = 1 - assembleT; 
-            const progress = Math.pow(linearProgress, 1.2); // Ease-out flavor
+            const progress = Math.pow(linearProgress, 1.2); 
             
-            // Tightened stagger (0.08) so they enter quickly one-by-one without trailing too far behind
+            // Stagger for continuous spiral flow
             const offsetProgress = (progress * 1.5) + (i * 0.08 * progress);
             const pathT = clamp01(offsetProgress / 1.5);
             
-            const w = typeof window !== 'undefined' ? window.innerWidth : 1920;
-            // Negative X means they start from the LEFT side, starting closer to the screen edge (w*0.6)
-            const x = -offsetProgress * (w * 0.6); 
+            // y starts high up (negative) and spirals down to 0
+            const y = -offsetProgress * 1500; 
             
-            // Weave up and down
-            const y = Math.sin(offsetProgress * Math.PI * 2) * 350; 
-            // Weave in and out of the screen
-            const zOff = Math.sin(offsetProgress * Math.PI * 1.5) * 400; 
+            // x and z form a converging spiral (radius starts at 800 and shrinks to 0)
+            const spiralRadius = offsetProgress * 800;
+            const x = Math.sin(offsetProgress * Math.PI * 4) * spiralRadius;
+            const zOff = Math.cos(offsetProgress * Math.PI * 4) * spiralRadius;
             
-            // Tilt along the wave
-            const slope = Math.cos(offsetProgress * Math.PI * 2);
-            const rotZ = lerp(0, -slope * 20, pathT); 
-            
-            // Face rightwards (+40 deg) while slithering from the left, blend to final ring angle
-            const rotY = lerp(theta, 40, pathT); 
+            // Rotate rapidly around Y and Z while spiraling
+            const rotY = lerp(theta, theta + offsetProgress * 720, pathT); 
+            const rotZ = lerp(0, offsetProgress * 180, pathT); 
             
             const finalZ = RING_RADIUS * CARD_SCALE;
+            // Transition from spiral path to final ring layout
             const currentZ = lerp(finalZ, finalZ + zOff, pathT);
-            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.5, pathT);
+            
+            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.4, pathT);
             
             el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${currentZ}px) scale(${currentScale})`;
 
