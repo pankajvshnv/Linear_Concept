@@ -425,7 +425,7 @@
     }
     .hero-body {
       position: relative; z-index: 3;
-      padding: 0 5vw; color: #fff;
+      padding: 15vh 5vw 0; color: #fff;
       opacity: 0; transform: translateY(22px);
       will-change: opacity, transform;
       height: 100vh;
