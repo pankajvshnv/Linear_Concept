@@ -425,9 +425,15 @@
     }
     .hero-body {
       position: relative; z-index: 3;
-      padding: 0 5vw 140px; color: #fff;
+      padding: 0 5vw; color: #fff;
       opacity: 0; transform: translateY(22px);
       will-change: opacity, transform;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
     /* hero-top: eyebrow row pinned to upper area */
     .hero-top {
@@ -448,10 +454,11 @@
     .hero-headline {
       font-family: var(--ff-display);
       font-size: clamp(44px, 8.5vw, 144px);
-      max-width: 1080px;
+      max-width: 1200px;
       letter-spacing: -.01em; line-height: 1.02;
       font-weight: 500;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      margin: 0 auto;
     }
     .hero-headline em {
       font-style: italic;
@@ -459,18 +466,39 @@
       font-weight: 400;
     }
     .hero-foot {
-      display: flex; justify-content: space-between; align-items: flex-end;
+      display: flex; flex-direction: column; align-items: center;
       margin-top: 36px;
     }
     .hero-foot-desc {
-      max-width: 340px;
-      font-size: 14px;
+      max-width: 600px;
+      font-size: 16px;
       line-height: 1.6;
-      color: rgba(255,255,255,.72);
+      color: rgba(255,255,255,.8);
       font-family: var(--ff-body);
+      margin: 0 auto;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; margin-top: 40px; align-items: center; justify-content: center;
+    }
+    .hero-btn {
+      padding: 14px 28px; text-decoration: none; border-radius: 4px; font-size: 14px; 
+      display: inline-flex; align-items: center; gap: 8px; font-weight: 500; transition: all 0.3s;
+    }
+    .hero-btn.primary {
+      background: #EBE6DF; color: #1A1A1A;
+    }
+    .hero-btn.primary:hover {
+      background: #ffffff;
+    }
+    .hero-btn.secondary {
+      background: transparent; color: #ffffff; border: 1px solid rgba(255,255,255,0.5);
+    }
+    .hero-btn.secondary:hover {
+      border-color: #ffffff;
     }
     .scroll-indicator {
-      display: flex; align-items: center; gap: 12px;
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
       font-size: 11px; letter-spacing: .15em; text-transform: uppercase; opacity: .8;
       font-family: var(--ff-mono);
     }
