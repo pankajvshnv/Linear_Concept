@@ -581,11 +581,18 @@
       font-weight: 400;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--grey);
       margin-bottom: 64px;
       display: flex;
       align-items: center;
       gap: 16px;
+    }
+
+    .sl-num {
+      color: var(--grey);
+    }
+
+    .sl-text {
+      color: #ffffff;
     }
 
     /* ═══════════════════════════════════════════
