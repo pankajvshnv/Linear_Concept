@@ -1244,13 +1244,39 @@
 
         // ── Lenis: listen for scroll events → instant frame update ──
         function attachScrollListener() {
+          let hideTimeout;
+          let isHidden = false;
+
+          function handleTextHide(scrollY) {
+            // Only toggle text visibility if we are within the hero section
+            if (scrollY < window.innerHeight * 2.5) {
+              if (!isHidden) {
+                isHidden = true;
+                if (typeof gsap !== 'undefined') {
+                  gsap.to('#hero-body', { opacity: 0, y: 50, duration: 0.4, ease: 'power2.out', overwrite: 'auto', pointerEvents: 'none' });
+                }
+              }
+              clearTimeout(hideTimeout);
+              hideTimeout = setTimeout(() => {
+                isHidden = false;
+                if (typeof gsap !== 'undefined') {
+                  gsap.to('#hero-body', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto', pointerEvents: 'auto' });
+                }
+              }, 250); // Reappear 250ms after scrolling stops
+            }
+          }
+
           if (window.__lenis) {
-            window.__lenis.on('scroll', ({ scroll }) => {
+            window.__lenis.on('scroll', ({ scroll, velocity }) => {
               updateFrameFromScroll(scroll);
+              if (Math.abs(velocity) > 0.1) {
+                handleTextHide(scroll);
+              }
             });
           } else {
             window.addEventListener('scroll', () => {
               updateFrameFromScroll(window.scrollY);
+              handleTextHide(window.scrollY);
             }, { passive: true });
           }
         }
