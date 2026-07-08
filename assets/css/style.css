@@ -466,8 +466,8 @@
       font-weight: 400;
     }
     .hero-foot {
+      position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); width: 90%;
       display: flex; flex-direction: column; align-items: center;
-      margin-top: 36px;
     }
     .hero-foot-desc {
       max-width: 600px;
@@ -497,13 +497,13 @@
       border-color: #ffffff;
     }
     .scroll-indicator {
-      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 12px;
-      font-size: 11px; letter-spacing: .15em; text-transform: uppercase; opacity: .8;
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: 10px; letter-spacing: .15em; text-transform: uppercase; opacity: .8;
       font-family: var(--ff-mono);
     }
     .scroll-line {
-      width: 1px; height: 40px; background: rgba(255,255,255,.4);
+      width: 1px; height: 16px; background: rgba(255,255,255,.4);
       position: relative; overflow: hidden;
     }
     .scroll-line::after {
