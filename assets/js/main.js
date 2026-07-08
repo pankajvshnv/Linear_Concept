@@ -208,10 +208,6 @@
     /* ────────────────────────────
        BLUEPRINT GRID
     ──────────────────────────── */
-    // Blueprint SVG removed from hero (now using video bg)
-    let bpLines = [];
-
-
 
     /* ────────────────────────────
        INIT PAGE ANIMATIONS
@@ -535,10 +531,15 @@
       if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
     };
 
-    // Remove the old load listener that triggered it immediately
-    // window.addEventListener('load', () => { ... });
-
     // Safety net: preloader gone within 5s no matter what
     setTimeout(hideLoaderHard, 5000);
 
+    // Dynamic footer year
+    const footerYear = document.getElementById('footer-year');
+    if (footerYear) footerYear.textContent = new Date().getFullYear();
 
+    // Back to top — using addEventListener instead of inline onclick
+    const backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+      backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }

@@ -35,12 +35,17 @@
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
     }
 
     body {
       cursor: none;
       overflow-x: hidden;
+    }
+
+    /* On touch devices restore cursor */
+    @media (hover: none) {
+      body { cursor: auto; }
+      button { cursor: pointer; }
     }
 
     a {
@@ -641,6 +646,16 @@
 
     .about-pin {
       padding: 40px 5vw 250px;
+    }
+
+    .about-heading {
+      font-family: var(--ff-display);
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-weight: 300;
+      color: var(--paper);
+      margin-top: 16px;
+      opacity: 0.6;
+      letter-spacing: -0.01em;
     }
 
     .about-statement {
