@@ -382,30 +382,55 @@
       });
 
       // ─── Services Section Animations ───
-      gsap.from('.services-list .service-item', {
-        opacity: 0,
-        x: -30,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.services',
-          start: 'top 60%',
-          toggleActions: 'play none none none'
-        }
-      });
+      // ─── Services: Full-Screen Scroll Reveal ───
+      (function initServicesScroll() {
+        const zone   = document.getElementById('services');
+        const slides = document.querySelectorAll('.svc-slide');
+        const bgs    = document.querySelectorAll('.svc-bg-slide');
+        const railFill = document.getElementById('svcRailFill');
+        const counter  = document.getElementById('svcCurrent');
+        const hint     = document.getElementById('svcScrollHint');
+        const N = slides.length;
+        if (!zone || !N) return;
 
-      gsap.from('.service-image-wrap', {
-        opacity: 0,
-        scale: 0.95,
-        duration: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.services',
-          start: 'top 50%',
-          toggleActions: 'play none none none'
+        let activeIdx = -1;
+
+        function activate(i) {
+          if (i === activeIdx) return;
+
+          // exit old slide
+          if (activeIdx >= 0) {
+            slides[activeIdx].classList.remove('active');
+            slides[activeIdx].classList.add('exit-up');
+            bgs[activeIdx].classList.remove('active');
+            setTimeout(() => slides[activeIdx]?.classList.remove('exit-up'), 700);
+          }
+
+          activeIdx = i;
+          slides[i].classList.add('active');
+          bgs[i].classList.add('active');
+          if (counter) counter.textContent = String(i + 1).padStart(2, '0');
+          if (railFill) railFill.style.height = ((i + 1) / N * 100) + '%';
+          if (hint) hint.classList.toggle('hidden', i > 0);
         }
-      });
+
+        // Activate first slide immediately
+        activate(0);
+
+        ScrollTrigger.create({
+          trigger: zone,
+          start: 'top top',
+          end: 'bottom bottom',
+          pin: '#svcSticky',
+          pinSpacing: false,
+          onUpdate(self) {
+            const idx = Math.min(N - 1, Math.floor(self.progress * N));
+            activate(idx);
+          }
+        });
+      })();
+
+
 
       // ─── Contact: Title Reveal ───
       gsap.from('.contact-statement .line-inner', {
@@ -453,45 +478,6 @@
       ScrollTrigger.refresh();
     }
 
-    /* ────────────────────────────
-       SERVICES ACCORDION
-    ──────────────────────────── */
-    const serviceItems = document.querySelectorAll('.service-item');
-    const serviceImages = document.querySelectorAll('.service-image-wrap img');
-
-    serviceItems.forEach(item => {
-      const header = item.querySelector('.service-header');
-      header.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-
-        // Close all
-        serviceItems.forEach(si => {
-          si.classList.remove('active');
-          si.querySelector('.service-body').style.maxHeight = '0';
-        });
-
-        // Open clicked if wasn't active
-        if (!isActive) {
-          item.classList.add('active');
-          const body = item.querySelector('.service-body');
-          body.style.maxHeight = body.scrollHeight + 'px';
-        }
-
-        // Swap image
-        const imgIndex = item.dataset.image;
-        serviceImages.forEach(img => img.classList.remove('active'));
-        if (!isActive) {
-          serviceImages[imgIndex].classList.add('active');
-        }
-      });
-
-      // Hover image swap
-      item.addEventListener('mouseenter', () => {
-        const imgIndex = item.dataset.image;
-        serviceImages.forEach(img => img.classList.remove('active'));
-        serviceImages[imgIndex].classList.add('active');
-      });
-    });
 
     /* ────────────────────────────
        FORM HANDLING

@@ -240,101 +240,105 @@
     </div>
   </section>
 
-  <!-- ════════════ SERVICES ════════════ -->
-  <section class="services" id="services">
-    <div class="section-label reveal-up">03 — Our Services</div>
+  <!-- ════════════ SERVICES (Full-Screen Scroll) ════════════ -->
+  <div class="svc-scroll-zone" id="services">
+    <div class="svc-sticky" id="svcSticky">
 
-    <div class="services-grid reveal-up">
-      <div class="services-list">
-        <div class="service-item active" data-image="0">
-          <button class="service-header" id="service-btn-1">
-            <span class="service-number">01</span>
-            <span class="service-name">Architecture</span>
-            <span class="service-toggle"></span>
-          </button>
-          <div class="service-body" style="max-height: 200px;">
-            <div class="service-body-inner">Masterful architectural design spanning residential towers, mixed-use
-              complexes, cultural institutions, and commercial developments. We deliver structures that define skylines
-              and stand the test of time.</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-image="1">
-          <button class="service-header" id="service-btn-2">
-            <span class="service-number">02</span>
-            <span class="service-name">Interior Design</span>
-            <span class="service-toggle"></span>
-          </button>
-          <div class="service-body">
-            <div class="service-body-inner">Transformative interior environments that balance aesthetic excellence with
-              functional brilliance. From private residences to corporate headquarters, we craft spaces that resonate
-              with purpose and beauty.</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-image="2">
-          <button class="service-header" id="service-btn-3">
-            <span class="service-number">03</span>
-            <span class="service-name">Urban Design</span>
-            <span class="service-toggle"></span>
-          </button>
-          <div class="service-body">
-            <div class="service-body-inner">Strategic urban master planning that shapes communities, revitalizes
-              districts, and creates sustainable cities. Our urban design work has defined over 4,800 acres of planned
-              spaces across India.</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-image="3">
-          <button class="service-header" id="service-btn-4">
-            <span class="service-number">04</span>
-            <span class="service-name">Hospitality Design</span>
-            <span class="service-toggle"></span>
-          </button>
-          <div class="service-body">
-            <div class="service-body-inner">Luxury hospitality environments where every corridor, lobby, and suite is
-              curated as a sensorial journey. We design hotels, resorts, spas, and restaurants that guests never forget.
-            </div>
-          </div>
-        </div>
-
-        <div class="service-item" data-image="4">
-          <button class="service-header" id="service-btn-5">
-            <span class="service-number">05</span>
-            <span class="service-name">Luxury Residential</span>
-            <span class="service-toggle"></span>
-          </button>
-          <div class="service-body">
-            <div class="service-body-inner">Bespoke residential design for discerning clients who demand the finest.
-              From private villas to penthouse apartments, we create homes that are expressions of personal identity and
-              elevated living.</div>
-          </div>
-        </div>
-
-        <div class="service-item" data-image="5">
-          <button class="service-header" id="service-btn-6">
-            <span class="service-number">06</span>
-            <span class="service-name">Strategic Advisory</span>
-            <span class="service-toggle"></span>
-          </button>
-          <div class="service-body">
-            <div class="service-body-inner">High-level design strategy and consulting for developers, investors, and
-              landowners. We help you make informed decisions about land use, development potential, and design
-              positioning before breaking ground.</div>
-          </div>
-        </div>
+      <!-- Background image layers -->
+      <div class="svc-bg-track" id="svcBgTrack">
+        <div class="svc-bg-slide" style="background-image:url('images/service-architecture.webp')"></div>
+        <div class="svc-bg-slide" style="background-image:url('images/project-hotel.webp')"></div>
+        <div class="svc-bg-slide" style="background-image:url('images/project-office.webp')"></div>
+        <div class="svc-bg-slide" style="background-image:url('images/project-restaurant.webp')"></div>
+        <div class="svc-bg-slide" style="background-image:url('images/project-residence.webp')"></div>
+        <div class="svc-bg-slide" style="background-image:url('images/project-cultural.webp')"></div>
       </div>
 
-      <div class="service-image-wrap" id="service-image-wrap">
-        <img src="images/service-architecture.webp" alt="Architecture service" class="active" data-index="0">
-        <img src="images/project-hotel.webp" alt="Interior design service" data-index="1">
-        <img src="images/project-office.webp" alt="Urban design service" data-index="2">
-        <img src="images/project-restaurant.webp" alt="Hospitality design service" data-index="3">
-        <img src="images/project-residence.webp" alt="Luxury residential service" data-index="4">
-        <img src="images/project-cultural.webp" alt="Strategic advisory service" data-index="5">
+      <!-- Dark overlay -->
+      <div class="svc-scrim"></div>
+
+      <!-- Section label top-left -->
+      <div class="svc-label">03 — Our Services</div>
+
+      <!-- Counter top-right -->
+      <div class="svc-counter">
+        <span class="svc-current" id="svcCurrent">01</span>
+        <span class="svc-sep">/</span>
+        <span class="svc-total">06</span>
       </div>
+
+      <!-- Service content slides -->
+      <div class="svc-content-track" id="svcContentTrack">
+
+        <div class="svc-slide">
+          <div class="svc-num">01</div>
+          <div class="svc-text">
+            <div class="svc-tag">Architecture</div>
+            <h2 class="svc-heading">Structures<br>that <em>endure.</em></h2>
+            <p class="svc-desc">Masterful architectural design spanning residential towers, mixed-use complexes, cultural institutions, and commercial developments. We deliver structures that define skylines and stand the test of time.</p>
+          </div>
+        </div>
+
+        <div class="svc-slide">
+          <div class="svc-num">02</div>
+          <div class="svc-text">
+            <div class="svc-tag">Interior Design</div>
+            <h2 class="svc-heading">Spaces that<br><em>resonate.</em></h2>
+            <p class="svc-desc">Transformative interior environments that balance aesthetic excellence with functional brilliance. From private residences to corporate headquarters, we craft spaces that resonate with purpose and beauty.</p>
+          </div>
+        </div>
+
+        <div class="svc-slide">
+          <div class="svc-num">03</div>
+          <div class="svc-text">
+            <div class="svc-tag">Urban Design</div>
+            <h2 class="svc-heading">Cities shaped<br>with <em>intent.</em></h2>
+            <p class="svc-desc">Strategic urban master planning that shapes communities, revitalizes districts, and creates sustainable cities. Our urban design work has defined over 4,800 acres of planned spaces across India.</p>
+          </div>
+        </div>
+
+        <div class="svc-slide">
+          <div class="svc-num">04</div>
+          <div class="svc-text">
+            <div class="svc-tag">Hospitality Design</div>
+            <h2 class="svc-heading">Experiences<br><em>unforgettable.</em></h2>
+            <p class="svc-desc">Luxury hospitality environments where every corridor, lobby, and suite is curated as a sensorial journey. We design hotels, resorts, spas, and restaurants that guests never forget.</p>
+          </div>
+        </div>
+
+        <div class="svc-slide">
+          <div class="svc-num">05</div>
+          <div class="svc-text">
+            <div class="svc-tag">Luxury Residential</div>
+            <h2 class="svc-heading">Homes as<br><em>identity.</em></h2>
+            <p class="svc-desc">Bespoke residential design for discerning clients who demand the finest. From private villas to penthouse apartments, we create homes that are expressions of personal identity and elevated living.</p>
+          </div>
+        </div>
+
+        <div class="svc-slide">
+          <div class="svc-num">06</div>
+          <div class="svc-text">
+            <div class="svc-tag">Strategic Advisory</div>
+            <h2 class="svc-heading">Vision before<br>you <em>build.</em></h2>
+            <p class="svc-desc">High-level design strategy and consulting for developers, investors, and landowners. We help you make informed decisions about land use, development potential, and design positioning before breaking ground.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Vertical progress rail right side -->
+      <div class="svc-rail">
+        <div class="svc-rail-fill" id="svcRailFill"></div>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="svc-scroll-hint" id="svcScrollHint">
+        <span>Scroll</span>
+        <div class="svc-scroll-line"></div>
+      </div>
+
     </div>
-  </section>
+  </div>
 
   <!-- Smooth Transition Spacer -->
   <div style="height: 4vh; background: var(--ink);"></div>
