@@ -770,6 +770,7 @@
 
         railFill.style.height = (p * 100).toFixed(1) + '%';
 
+        const fadeInT = clamp01(p / 0.15); // Fade in over the first 15% of progress
         const k = easeInOutCubic(clamp01((p - TRANSITION_START) / (TRANSITION_END - TRANSITION_START)));
         const flatT = easeInOutCubic(clamp01((p - FLAT_START) / (FLAT_END - FLAT_START)));
         
@@ -818,7 +819,7 @@
           el.style.transform = `rotate3d(${currentAxisX},${currentAxisY},${currentAxisZ},${theta}deg) translate3d(0px, ${currentTransY}px, ${currentTransZ}px) scale(${currentScale})`;
 
           const dim = 0.35 + facing * 0.45;
-          const arcOpacity = clamp01(dim + 0.55);
+          const arcOpacity = clamp01(dim + 0.55) * fadeInT;
           
           el.style.opacity = lerp(arcOpacity, 1, flatT);
           
@@ -839,7 +840,7 @@
           if (distFromFront < frontMinAngle) { frontMinAngle = distFromFront; frontIndex = i; }
         });
 
-        const captionOpacity = 1 - k;
+        const captionOpacity = Math.max(0, fadeInT * (1 - k));
         if (captionOpacity > 0.02) {
           const proj = projects[frontIndex];
           if (captionTitle.textContent !== proj.title) {
