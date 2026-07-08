@@ -1122,6 +1122,7 @@
       let drawnFrame = -1;  // frame last painted to canvas
       let rafRunning = false;
       let isScrollInitialized = false;
+      let currentProgress = 0;
 
       /* ── Size canvas to cover the viewport ── */
       function resizeCanvas() {
@@ -1174,6 +1175,7 @@
         const zoneHeight = zone.offsetHeight - window.innerHeight;
         if (zoneHeight <= 0) return;
         const progress = Math.max(0, Math.min(1, (scrollY - zoneTop) / zoneHeight));
+        currentProgress = progress; // Expose globally for handleTextHide
         targetFrame = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
         
         const finalText = document.getElementById('hero-final-text');
@@ -1270,8 +1272,8 @@
           function handleTextHide(scrollY) {
             clearTimeout(hideTimeout);
             
-            // If we are at the end of the hero section, hide the primary text and DO NOT show it again
-            if (scrollY > window.innerHeight * 2.5) {
+            // If we are past 80% of the hero sequence (where the final text comes in), hide the primary text and DO NOT show it again
+            if (currentProgress > 0.8) {
               if (!isHidden) {
                 isHidden = true;
                 if (typeof gsap !== 'undefined') {
@@ -1281,7 +1283,7 @@
               return;
             }
 
-            // Otherwise, we are in the main scrolling zone, hide while scrolling
+            // Otherwise, we are in the main scrolling zone, hide while actively scrolling
             if (!isHidden) {
               isHidden = true;
               if (typeof gsap !== 'undefined') {
