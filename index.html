@@ -699,12 +699,11 @@
       const N = projects.length;
       let RING_RADIUS = 750; // Increased base radius so there is enough space between cards
       let ARC_RADIUS = 320;
-      const ASSEMBLE_END = 0.20; // Re-adjusted for a faster, tighter entrance without white space delay
       const TRANSITION_START = 0.40;
       const TRANSITION_END = 0.58;
       const FLAT_START = 0.80;
       const FLAT_END = 0.90;
-      const TOTAL_SPIN_DEG = 270; // Reduced rotation speed (3/4 of a turn instead of 1.5)
+      const TOTAL_SPIN_DEG = 360; // Slightly increased since they start spinning immediately
 
       const railEl = document.getElementById('lcProgressRail');
       const flatCaption = document.getElementById('lcFlatCaption');
@@ -771,11 +770,10 @@
 
         railFill.style.height = (p * 100).toFixed(1) + '%';
 
-        const assembleT = easeInOutCubic(clamp01(p / ASSEMBLE_END));
         const k = easeInOutCubic(clamp01((p - TRANSITION_START) / (TRANSITION_END - TRANSITION_START)));
         const flatT = easeInOutCubic(clamp01((p - FLAT_START) / (FLAT_END - FLAT_START)));
         
-        const spinProgress = p <= ASSEMBLE_END ? 0 : clamp01((p - ASSEMBLE_END) / (1 - ASSEMBLE_END));
+        const spinProgress = p;
         const spinEaseOut = 1 - Math.pow(1 - spinProgress, 3); // Ease-out curve for rotation speed
         const spinDeg = spinEaseOut * TOTAL_SPIN_DEG;
         
@@ -809,54 +807,18 @@
           const normalized = ((theta % 360) + 360) % 360;
           const facing = Math.cos(normalized * Math.PI / 180);
 
-          if (p <= ASSEMBLE_END || assembleT < 1) {
-            // Cinematic Spiral Descent
-            // Starts from top in helical formation, moving downward and converging to center
-            const linearProgress = 1 - assembleT; 
-            // Removed ease-out so cards appear immediately without delay
-            const progress = linearProgress; 
-            
-            // Tighten the stagger so they enter quickly and densely
-            const offsetProgress = progress + (i * 0.04 * progress);
-            const pathT = clamp01(offsetProgress);
-            
-            const h = typeof window !== 'undefined' ? window.innerHeight : 1080;
-            // y starts just off the top of the screen to prevent blank white space delay
-            const startY = -(h / 2) - 300; 
-            const y = offsetProgress * startY; 
-            
-            // Converging spiral: radius starts at 600 and shrinks to 0
-            const spiralRadius = offsetProgress * 600;
-            const x = Math.sin(offsetProgress * Math.PI * 6) * spiralRadius; // 3 full loops
-            const zOff = Math.cos(offsetProgress * Math.PI * 6) * spiralRadius;
-            
-            // Rotate rapidly around Y and Z while spiraling
-            const rotY = lerp(theta, theta + offsetProgress * 720, pathT); 
-            const rotZ = lerp(0, offsetProgress * 180, pathT); 
-            
-            const finalZ = RING_RADIUS * CARD_SCALE;
-            // Transition from spiral path to final ring layout
-            const currentZ = lerp(finalZ, finalZ + zOff, pathT);
-            
-            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.4, pathT);
-            
-            el.style.transform = `translate3d(${x}px,${y}px,0px) rotateY(${rotY}deg) rotateZ(${rotZ}deg) translateZ(${currentZ}px) scale(${currentScale})`;
+          const currentAxisX = ax;
+          const currentAxisY = ay;
+          const currentAxisZ = az;
+          
+          const currentTransY = lerp(0, -finalRadius * CARD_SCALE, k);
+          const currentTransZ = lerp(RING_RADIUS * CARD_SCALE, 0, k);
+          const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.8, flatT);
 
-          } else {
-            const currentAxisX = ax;
-            const currentAxisY = ay;
-            const currentAxisZ = az;
-            
-            const currentTransY = lerp(0, -finalRadius * CARD_SCALE, k);
-            const currentTransZ = lerp(RING_RADIUS * CARD_SCALE, 0, k);
-            const currentScale = lerp(CARD_SCALE, CARD_SCALE * 0.8, flatT);
+          el.style.transform = `rotate3d(${currentAxisX},${currentAxisY},${currentAxisZ},${theta}deg) translate3d(0px, ${currentTransY}px, ${currentTransZ}px) scale(${currentScale})`;
 
-            el.style.transform = `rotate3d(${currentAxisX},${currentAxisY},${currentAxisZ},${theta}deg) translate3d(0px, ${currentTransY}px, ${currentTransZ}px) scale(${currentScale})`;
-          }
-
-          const dim = lerp(1, 0.35 + facing * 0.45, assembleT);
-          const baseOpacity = Math.min(1, assembleT * 3);
-          const arcOpacity = clamp01(dim + 0.55) * baseOpacity;
+          const dim = 0.35 + facing * 0.45;
+          const arcOpacity = clamp01(dim + 0.55);
           
           el.style.opacity = lerp(arcOpacity, 1, flatT);
           
@@ -877,7 +839,7 @@
           if (distFromFront < frontMinAngle) { frontMinAngle = distFromFront; frontIndex = i; }
         });
 
-        const captionOpacity = Math.min(1, Math.max(0, (assembleT - 0.6) / 0.15)) * (1 - k);
+        const captionOpacity = 1 - k;
         if (captionOpacity > 0.02) {
           const proj = projects[frontIndex];
           if (captionTitle.textContent !== proj.title) {
