@@ -532,14 +532,14 @@
       font-weight: 300;
       line-height: 1;
       font-size: clamp(80px, 11vw, 180px);
-      color: #fff;
+      color: #111;
       letter-spacing: -0.03em;
     }
 
     .lc-journey-stat .lc-label {
       margin-top: 12px;
       font-size: clamp(26px, 3vw, 46px);
-      color: rgba(255, 255, 255, 0.85);
+      color: #111;
       max-width: 460px;
       line-height: 1.05;
       font-family: 'Fraunces', serif;
@@ -639,125 +639,6 @@
         gap: 20px;
         text-align: center;
       }
-      
-      /* Disable pinned 3D height on mobile and use standard flow */
-      .lc-ring-section {
-        height: auto !important;
-        padding: 40px 0;
-      }
-      .lc-ring-viewport {
-        position: relative !important;
-        height: auto !important;
-        overflow: hidden !important;
-      }
-      .lc-ring-perspective {
-        position: relative !important;
-        display: block !important;
-      }
-      
-      /* Static Circle Gallery on Mobile */
-      .lc-ring-stage {
-        position: relative !important;
-        width: 100vw !important;
-        height: 100vw !important; /* Make it a square */
-        margin: 0 auto !important;
-        transform: none !important;
-      }
-      
-      .lc-card {
-        position: absolute !important;
-        width: 120px !important;
-        height: 160px !important;
-        left: calc(50% - 60px) !important;
-        top: calc(50% - 80px) !important;
-        margin: 0 !important;
-        opacity: 1 !important;
-        /* Transform is applied via JS */
-      }
-      
-      .lc-card-inner {
-        position: absolute !important;
-        inset: 0 !important;
-        clip-path: none !important;
-      }
-
-      .lc-mobile-center-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-family: var(--ff-display);
-        font-size: clamp(24px, 5vw, 36px);
-        text-align: center;
-        color: #fff;
-        line-height: 1.1;
-        width: 80%;
-        z-index: 100;
-        pointer-events: none;
-      }
-      
-      /* Vertical Scroll-Snapping Stats */
-      .lc-journey-col {
-        position: relative !important;
-        width: 100% !important;
-        margin-top: 40px;
-        padding: 0 24px;
-      }
-
-      .lc-journey-stats {
-        height: 180px !important; /* exactly 3 items of 60px height */
-        overflow-y: auto !important;
-        scroll-snap-type: y mandatory;
-        /* Hide scrollbar */
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-      }
-      .lc-journey-stats::-webkit-scrollbar {
-        display: none;
-      }
-      
-      .lc-journey-stats-inner {
-        padding: 60px 0 !important; /* Pad top/bottom so first/last can be centered */
-        gap: 0 !important;
-      }
-
-      .lc-journey-stat {
-        height: 60px !important;
-        scroll-snap-align: center;
-        opacity: 0.25;
-        transition: opacity 0.3s;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .lc-journey-stat.active {
-        opacity: 1;
-      }
-      
-      .lc-journey-stat .lc-value {
-        font-size: 36px !important;
-      }
-      .lc-journey-stat .lc-label {
-        font-size: 14px !important;
-        margin-top: 4px !important;
-      }
-      
-      /* Hide the 3D-specific caption on mobile */
-      .lc-ring-caption {
-        display: none !important;
-      }
-
-      /* Show the flat caption text immediately at the top */
-      .lc-flat-caption {
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        margin-bottom: 60px;
-      }
     }
   </style>
 
@@ -845,41 +726,15 @@
       const railEl = document.getElementById('lcProgressRail');
       const flatCaption = document.getElementById('lcFlatCaption');
 
-      // Initialize mobile layout state once
-      const isMobileInit = window.innerWidth <= 900;
-      const displayProjects = isMobileInit ? projects.slice(0, 10) : projects;
-      const N = displayProjects.length;
+      // Scatter array removed - animation now uses dynamic 3D pathing in renderLoop
 
-      const cards = displayProjects.map((p, i) => {
+      const cards = projects.map((p) => {
         const el = document.createElement('div');
         el.className = 'lc-card';
         el.innerHTML = `<div class="lc-card-inner"><img src="${p.img}" alt="${p.title}" loading="lazy"><div class="lc-tag">${p.title}</div></div>`;
-        
-        if (isMobileInit) {
-          // Static circle arrangement (No 3D animation)
-          const angle = (360 / N) * i;
-          const rad = angle * Math.PI / 180;
-          // Radius is 36vw (leaves room for card width)
-          const radiusVW = 36; 
-          const x = Math.sin(rad) * radiusVW;
-          const y = -Math.cos(rad) * radiusVW;
-          
-          el.style.left = `calc(50% - 60px + ${x}vw)`;
-          el.style.top = `calc(50% - 80px + ${y}vw)`;
-          // Rotate slightly outward for a dynamic look
-          el.style.transform = `rotate(${angle}deg)`;
-        }
-        
         stage.appendChild(el);
         return el;
       });
-
-      if (isMobileInit) {
-         const centerText = document.createElement('div');
-         centerText.className = 'lc-mobile-center-text';
-         centerText.innerHTML = '38<br>Years of<br>Legacy';
-         stage.appendChild(centerText);
-      }
 
       stats.forEach((s, i) => {
         const el = document.createElement('div');
@@ -892,20 +747,6 @@
         if (i === 0) dot.className = 'active';
         dotsHost.appendChild(dot);
       });
-
-      if (isMobileInit) {
-        statsHost.addEventListener('scroll', () => {
-          // Items are 60px tall
-          const itemHeight = 60;
-          const scrollY = statsHost.scrollTop;
-          const activeIdx = Math.round(scrollY / itemHeight);
-          
-          statsHost.querySelectorAll('.lc-journey-stat').forEach((el, i) => {
-            if (i === activeIdx) el.classList.add('active');
-            else el.classList.remove('active');
-          });
-        });
-      }
 
       function lerp(a, b, t) { return a + (b - a) * t; }
       function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
@@ -942,10 +783,6 @@
       let currentProgress = 0;
 
       function renderLoop() {
-        requestAnimationFrame(renderLoop);
-        
-        if (!IS_DESKTOP) return; // Skip heavy 3D math and lag on mobile screens
-        
         currentProgress = lerp(currentProgress, targetProgress, 0.08); // Restored to 0.08 for snappy response
         const p = clamp01(currentProgress);
 
@@ -1051,6 +888,7 @@
 
           activeStat = statIndex;
         }
+        requestAnimationFrame(renderLoop);
       }
 
       requestAnimationFrame(renderLoop);
@@ -1058,16 +896,13 @@
       // Wait for GSAP/ScrollTrigger to be ready
       window.addEventListener('load', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-          let mm = gsap.matchMedia();
-          mm.add("(min-width: 769px)", () => {
-            ScrollTrigger.create({
-              trigger: '#ringSection',
-              start: 'top top',
-              end: 'bottom bottom',
-              pin: '#lcRingViewport',
-              pinSpacing: false,
-              onUpdate: self => { targetProgress = self.progress; }
-            });
+          ScrollTrigger.create({
+            trigger: '#ringSection',
+            start: 'top top',
+            end: 'bottom bottom',
+            pin: '#lcRingViewport',
+            pinSpacing: false,
+            onUpdate: self => { targetProgress = self.progress; }
           });
           targetProgress = 0;
         }
