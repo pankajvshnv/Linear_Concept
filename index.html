@@ -334,11 +334,12 @@
     }
 
     .lc-ring-viewport {
-      position: relative;
+      position: sticky;
+      top: 0;
       height: 100vh;
       overflow: hidden;
-      background: #ffffff;
-      transition: background-color 0.8s ease;
+      background-color: #fff;
+      transition: background-color 0.8s ease; /* Fixes the instant color flash glitch */
     }
 
     .lc-ring-perspective {
@@ -658,23 +659,22 @@
   <script>
     (function () {
       const projects = [
-        { title: "Facades", sub: "Hospitality · Delhi · 2022", img: "https://www.linearconcepts.in/images/projects/details/facades/facades-10.jpg" },
-        { title: "Micasa", sub: "Luxury Residential · Gurugram · 2021", img: "https://www.linearconcepts.in/images/projects/details/micasa/micasa-07.jpg" },
-        { title: "Satyasheel", sub: "Corporate · Noida · 2020", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-01.jpg" },
-        { title: "Modern Duplex", sub: "Residential · 2023", img: "https://www.linearconcepts.in/images/projects/details/modern-duplex/modern-duplex-07.jpg" },
-        { title: "Satyasheel Interior", sub: "Corporate · Noida · 2020", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-14.jpg" },
-        { title: "Satyasheel Workspace", sub: "Corporate · Noida · 2020", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-02.jpg" },
-        { title: "Meridian Atrium", sub: "Mixed-use · natural ventilation", img: "https://picsum.photos/id/1074/600/800" },
-        { title: "Salt Marsh Retreat", sub: "Elevated timber frame · 2016", img: "https://picsum.photos/id/1016/600/800" },
-        { title: "Copper Roof Atelier", sub: "Standing-seam copper · 2015", img: "https://picsum.photos/id/1035/600/800" },
-        { title: "Basalt Courtyard", sub: "Volcanic stone facade · 2014", img: "https://picsum.photos/id/1041/600/800" },
-        { title: "Alpine Retreat", sub: "Residential · 2018", img: "https://picsum.photos/id/1015/600/800" },
-        { title: "Glass Pavilion", sub: "Exhibition · 2017", img: "https://picsum.photos/id/1025/600/800" },
-        { title: "Timber Cabin", sub: "Hospitality · 2019", img: "https://picsum.photos/id/1036/600/800" },
-        { title: "Concrete Villa", sub: "Residential · 2020", img: "https://picsum.photos/id/1040/600/800" },
-        { title: "Urban Loft", sub: "Interior · 2021", img: "https://picsum.photos/id/1043/600/800" },
-        { title: "Lakeside House", sub: "Residential · 2016", img: "https://picsum.photos/id/1047/600/800" },
-        { title: "Desert Oasis", sub: "Hospitality · 2022", img: "https://picsum.photos/id/1050/600/800" }
+        { title: "Facades", sub: "Hospitality · Delhi", img: "https://www.linearconcepts.in/images/projects/details/facades/facades-10.jpg" },
+        { title: "Jain Residence", sub: "Residential", img: "https://picsum.photos/id/1015/600/800" },
+        { title: "Pulp Society", sub: "IN", img: "https://picsum.photos/id/1025/600/800" },
+        { title: "Micasa", sub: "Gurugram, IN", img: "https://www.linearconcepts.in/images/projects/details/micasa/micasa-07.jpg" },
+        { title: "MMCL HQ", sub: "Bangalore, IN", img: "https://picsum.photos/id/1036/600/800" },
+        { title: "Modern Duplex", sub: "Residential", img: "https://www.linearconcepts.in/images/projects/details/modern-duplex/modern-duplex-07.jpg" },
+        { title: "Satyasheel", sub: "Gurugram, IN", img: "https://www.linearconcepts.in/images/projects/details/satyasheel/satyasheel-01.jpg" },
+        { title: "The Crest", sub: "Nirvana Residence, IN", img: "https://picsum.photos/id/1040/600/800" },
+        { title: "Facades", sub: "Hospitality · Delhi", img: "https://picsum.photos/id/1074/600/800" },
+        { title: "Jain Residence", sub: "Residential", img: "https://picsum.photos/id/1016/600/800" },
+        { title: "Pulp Society", sub: "IN", img: "https://picsum.photos/id/1035/600/800" },
+        { title: "Micasa", sub: "Gurugram, IN", img: "https://picsum.photos/id/1041/600/800" },
+        { title: "MMCL HQ", sub: "Bangalore, IN", img: "https://picsum.photos/id/1043/600/800" },
+        { title: "Modern Duplex", sub: "Residential", img: "https://picsum.photos/id/1047/600/800" },
+        { title: "Satyasheel", sub: "Gurugram, IN", img: "https://picsum.photos/id/1050/600/800" },
+        { title: "The Crest", sub: "Nirvana Residence, IN", img: "https://picsum.photos/id/1051/600/800" }
       ];
 
       const stats = [
