@@ -544,12 +544,13 @@
     }
     .hero-final-main {
       font-family: 'Inter Tight', sans-serif;
-      font-size: clamp(60px, 16vw, 260px);
+      font-size: clamp(40px, 11vw, 220px); /* Scaled down slightly to fit on one line */
       font-weight: 500;
       line-height: 0.8;
       letter-spacing: -0.02em;
       width: 100%;
       text-align: left;
+      white-space: nowrap;
     }
 
     /* ═══════════════════════════════════════════
