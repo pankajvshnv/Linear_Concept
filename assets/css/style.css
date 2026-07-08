@@ -859,7 +859,7 @@
     ═══════════════════════════════════════════ */
     .services {
       position: relative;
-      padding: 160px 48px 40px; /* Reduced bottom spacing for smooth transition */
+      padding: 160px 48px 20px;
       background: var(--ink);
       color: var(--paper);
     }
