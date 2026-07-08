@@ -543,7 +543,7 @@
       text-align: right;
     }
     .hero-final-main {
-      font-family: var(--ff-display);
+      font-family: 'Inter Tight', sans-serif;
       font-size: clamp(60px, 16vw, 260px);
       font-weight: 500;
       line-height: 0.8;
