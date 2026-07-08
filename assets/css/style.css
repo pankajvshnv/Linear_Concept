@@ -1591,3 +1591,86 @@
       .footer-big-link { font-size: 17px; }
       .footer-bottom-row { flex-direction: column; align-items: flex-start; padding: 24px 0 32px; }
     }
+
+    /* ═══════════════════════════════════════════
+       COMPREHENSIVE MOBILE OPTIMIZATION
+    ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* General Layout & Padding */
+      .wrap { padding: 80px 24px !important; }
+      
+      /* Typography */
+      .hero-final-sub { font-size: 0.65rem; }
+      .hero-final-main { font-size: clamp(3rem, 10vw, 5rem); }
+      .about-heading { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+      .about-statement { font-size: 1.1rem; }
+      .projects-title { font-size: clamp(1.8rem, 6vw, 3rem); }
+      .svc-heading { font-size: clamp(2rem, 7vw, 3.5rem) !important; }
+      
+      /* About Gallery */
+      .about-gallery { 
+        padding: 40px 24px !important;
+        flex-direction: column;
+        gap: 24px;
+        min-height: auto;
+      }
+      .about-img-col {
+        max-width: 100%;
+        width: 100%;
+        height: auto !important;
+        transform: translateY(0) !important;
+      }
+      .about-img-col img {
+        aspect-ratio: 4/3;
+      }
+
+      /* Projects Header */
+      .projects {
+        padding: 80px 0 80px 24px !important;
+      }
+      .projects-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding-right: 24px !important;
+        margin-bottom: 40px !important;
+      }
+      .projects-count {
+        align-self: flex-start;
+      }
+      .project-card {
+        width: 85vw !important; /* Larger relative width on mobile for sideways scroll */
+      }
+      
+      /* Services Scroll Fixes */
+      .svc-slide {
+        grid-template-columns: 1fr !important; /* Stack text */
+        bottom: 8vh !important;
+        left: 24px !important;
+        right: 24px !important;
+      }
+      .svc-num {
+        display: none !important; /* Hide giant number on small screens */
+      }
+      .svc-label {
+        top: 24px !important;
+        left: 24px !important;
+      }
+      .svc-counter {
+        top: 24px !important;
+        right: 24px !important;
+      }
+      .svc-rail {
+        right: 8px !important; /* Move rail to the extreme edge */
+        height: 120px !important;
+      }
+
+      /* Ring Section Text Scaling */
+      .lc-flat-caption h2 {
+        font-size: clamp(40px, 12vw, 80px) !important;
+        margin-bottom: 24px !important;
+      }
+      .lc-flat-caption-cols {
+        gap: 16px !important;
+      }
+    }

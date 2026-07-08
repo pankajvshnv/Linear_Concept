@@ -349,15 +349,16 @@
       // ─── Projects: Horizontal Scroll ───
       const galleryTrack = document.getElementById('gallery-track');
       const cards = galleryTrack.querySelectorAll('.project-card');
-      const galleryWidth = galleryTrack.scrollWidth - window.innerWidth + 48;
+      
+      const getGalleryWidth = () => galleryTrack.scrollWidth - window.innerWidth + 48;
 
       gsap.to(galleryTrack, {
-        x: -galleryWidth,
+        x: () => -getGalleryWidth(),
         ease: 'none',
         scrollTrigger: {
           trigger: '.projects',
           start: 'top top',
-          end: () => `+=${galleryWidth}`,
+          end: () => `+=${getGalleryWidth()}`,
           scrub: 1,
           pin: true,
           anticipatePin: 1,
