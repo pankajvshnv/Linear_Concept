@@ -1248,7 +1248,22 @@
           let isHidden = false;
 
           function handleTextHide(scrollY) {
-            // Only toggle text visibility if we are within the hero section
+            const zone = document.getElementById('hero-scroll-zone');
+            const zoneHeight = zone ? (zone.offsetHeight - window.innerHeight) : (window.innerHeight * 2);
+            const progress = Math.max(0, Math.min(1, scrollY / zoneHeight));
+
+            // If the scrolling effect is completely over (end of video), force text to slide up and stay visible
+            if (progress >= 0.98) {
+              if (isHidden) {
+                isHidden = false;
+                if (typeof gsap !== 'undefined') {
+                  gsap.to('#hero-body', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto', pointerEvents: 'auto' });
+                }
+              }
+              return; // Disable hiding logic in the last phase
+            }
+
+            // Normal toggle text visibility if we are within the hero section
             if (scrollY < window.innerHeight * 2.5) {
               if (!isHidden) {
                 isHidden = true;
