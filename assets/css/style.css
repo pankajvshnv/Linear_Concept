@@ -512,6 +512,45 @@
       background: #fff; animation: sline 2s ease-in-out infinite;
     }
     @keyframes sline { 0%{top:-100%;} 50%{top:0;} 100%{top:100%;} }
+    
+    /* ── Hero Final Text (Appears at end of scroll) ── */
+    .hero-final-text {
+      position: absolute;
+      bottom: -15px; /* So it sits perfectly at the bottom edge */
+      left: 0;
+      width: 100%;
+      padding: 0 4vw 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+      color: #fff;
+      pointer-events: none;
+      opacity: 0; /* Hidden by default, animated by GSAP */
+      transform: translateY(100px);
+    }
+    .hero-final-top {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+    .hero-final-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      opacity: 0.8;
+      font-family: var(--ff-mono);
+      text-align: right;
+    }
+    .hero-final-main {
+      font-family: var(--ff-display);
+      font-size: clamp(60px, 16vw, 260px);
+      font-weight: 500;
+      line-height: 0.8;
+      letter-spacing: -0.02em;
+      width: 100%;
+      text-align: left;
+    }
 
     /* ═══════════════════════════════════════════
        SECTION WRAPPER & COMMON

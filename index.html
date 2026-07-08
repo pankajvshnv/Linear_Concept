@@ -114,10 +114,16 @@
           <div class="scroll-line"></div>Scroll
         </div>
       </div>
+      <!-- Massive text that appears at the end of the scroll -->
+      <div class="hero-final-text" id="hero-final-text">
+        <div class="hero-final-top">
+          <div class="hero-final-sub">Urban Design • Architecture • Interiors</div>
+        </div>
+        <div class="hero-final-main">Linear Concepts</div>
+      </div>
+      
     </section>
   </div>
-
-
 
   <!-- ════════════ ABOUT ════════════ -->
   <section id="about">
@@ -1169,6 +1175,20 @@
         if (zoneHeight <= 0) return;
         const progress = Math.max(0, Math.min(1, (scrollY - zoneTop) / zoneHeight));
         targetFrame = Math.min(TOTAL_FRAMES - 1, Math.floor(progress * TOTAL_FRAMES));
+        
+        const finalText = document.getElementById('hero-final-text');
+        if (finalText) {
+          if (progress > 0.85) {
+            // Animate in during the final 15% of the scroll
+            const p = (progress - 0.85) / 0.15;
+            finalText.style.opacity = p;
+            finalText.style.transform = `translateY(${(1 - Math.pow(p, 3)) * 100}px)`;
+          } else {
+            finalText.style.opacity = 0;
+            finalText.style.transform = `translateY(100px)`;
+          }
+        }
+        
         scheduleRaf();
       }
 
@@ -1248,22 +1268,7 @@
           let isHidden = false;
 
           function handleTextHide(scrollY) {
-            const zone = document.getElementById('hero-scroll-zone');
-            const zoneHeight = zone ? (zone.offsetHeight - window.innerHeight) : (window.innerHeight * 2);
-            const progress = Math.max(0, Math.min(1, scrollY / zoneHeight));
-
-            // If the scrolling effect is completely over (end of video), force text to slide up and stay visible
-            if (progress >= 0.98) {
-              if (isHidden) {
-                isHidden = false;
-                if (typeof gsap !== 'undefined') {
-                  gsap.to('#hero-body', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto', pointerEvents: 'auto' });
-                }
-              }
-              return; // Disable hiding logic in the last phase
-            }
-
-            // Normal toggle text visibility if we are within the hero section
+            // Only toggle text visibility if we are within the hero section
             if (scrollY < window.innerHeight * 2.5) {
               if (!isHidden) {
                 isHidden = true;
