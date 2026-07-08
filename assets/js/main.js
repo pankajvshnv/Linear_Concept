@@ -352,18 +352,22 @@
       
       const getGalleryWidth = () => galleryTrack.scrollWidth - window.innerWidth + 48;
 
-      gsap.to(galleryTrack, {
-        x: () => -getGalleryWidth(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.projects',
-          start: 'top top',
-          end: () => `+=${getGalleryWidth()}`,
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true
-        }
+      let mm = gsap.matchMedia();
+
+      mm.add("(min-width: 769px)", () => {
+        gsap.to(galleryTrack, {
+          x: () => -getGalleryWidth(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.projects',
+            start: 'top top',
+            end: () => `+=${getGalleryWidth()}`,
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true
+          }
+        });
       });
 
       // Project card reveal on scroll

@@ -639,6 +639,64 @@
         gap: 20px;
         text-align: center;
       }
+      
+      /* Disable pinned 3D height on mobile and use standard flow */
+      .lc-ring-section {
+        height: auto !important;
+        padding: 60px 24px;
+      }
+      .lc-ring-viewport {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      .lc-ring-perspective {
+        position: relative !important;
+        display: block !important;
+      }
+      
+      /* Layout cards in a beautiful grid on mobile */
+      .lc-ring-stage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        transform: none !important;
+      }
+      
+      /* Override absolute positioning */
+      .lc-card {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        left: 0 !important;
+        top: 0 !important;
+        margin: 0 !important;
+        transform: none !important;
+        opacity: 1 !important;
+      }
+      
+      .lc-card-inner {
+        position: relative !important;
+        aspect-ratio: 4/5;
+        clip-path: none !important;
+      }
+      
+      /* Hide the 3D-specific caption and stats on mobile */
+      .lc-ring-caption,
+      .lc-journey-col {
+        display: none !important;
+      }
+
+      /* Show the flat caption text immediately at the top */
+      .lc-flat-caption {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        margin-bottom: 60px;
+      }
     }
   </style>
 
@@ -783,6 +841,10 @@
       let currentProgress = 0;
 
       function renderLoop() {
+        requestAnimationFrame(renderLoop);
+        
+        if (!IS_DESKTOP) return; // Skip heavy 3D math and lag on mobile screens
+        
         currentProgress = lerp(currentProgress, targetProgress, 0.08); // Restored to 0.08 for snappy response
         const p = clamp01(currentProgress);
 
@@ -888,7 +950,6 @@
 
           activeStat = statIndex;
         }
-        requestAnimationFrame(renderLoop);
       }
 
       requestAnimationFrame(renderLoop);
@@ -896,13 +957,16 @@
       // Wait for GSAP/ScrollTrigger to be ready
       window.addEventListener('load', () => {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-          ScrollTrigger.create({
-            trigger: '#ringSection',
-            start: 'top top',
-            end: 'bottom bottom',
-            pin: '#lcRingViewport',
-            pinSpacing: false,
-            onUpdate: self => { targetProgress = self.progress; }
+          let mm = gsap.matchMedia();
+          mm.add("(min-width: 769px)", () => {
+            ScrollTrigger.create({
+              trigger: '#ringSection',
+              start: 'top top',
+              end: 'bottom bottom',
+              pin: '#lcRingViewport',
+              pinSpacing: false,
+              onUpdate: self => { targetProgress = self.progress; }
+            });
           });
           targetProgress = 0;
         }
