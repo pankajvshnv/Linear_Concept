@@ -53,6 +53,11 @@
       text-decoration: none;
     }
 
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--ff-display);
+      font-weight: 400;
+    }
+
     button {
       font: inherit;
       border: none;
@@ -861,6 +866,7 @@
     .svc-scroll-zone {
       height: 700vh; /* 6 services × ~100vh each + buffer */
       position: relative;
+      background: var(--ink);
     }
 
     .svc-sticky {
@@ -987,7 +993,7 @@
       font-size: clamp(80px, 14vw, 220px);
       font-weight: 300;
       line-height: 1;
-      color: rgba(255,255,255,0.07);
+      color: rgba(255, 255, 255, 0.25);
       letter-spacing: -0.04em;
       user-select: none;
       align-self: end;

@@ -421,13 +421,27 @@
           trigger: zone,
           start: 'top top',
           end: 'bottom bottom',
-          pin: '#svcSticky',
-          pinSpacing: false,
           onUpdate(self) {
             const idx = Math.min(N - 1, Math.floor(self.progress * N));
             activate(idx);
           }
         });
+
+        // Smoothly fade in the services section as it enters the viewport
+        // to prevent a harsh cut from the dark Projects section.
+        gsap.fromTo('#svcSticky', 
+          { opacity: 0 },
+          { 
+            opacity: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: zone,
+              start: 'top 80%',
+              end: 'top 20%',
+              scrub: true
+            }
+          }
+        );
       })();
 
 

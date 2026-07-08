@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap"
     rel="stylesheet">
 
   <!-- GSAP + ScrollTrigger + ScrollToPlugin -->
@@ -142,7 +142,7 @@
   <!-- ════════════ ABOUT ════════════ -->
   <section id="about">
     <div class="wrap reveal-up" style="padding-bottom:0;">
-      <span class="eyebrow">01 — About the studio</span>
+      <div class="section-label">01 — About the studio</div>
       <h2 class="about-heading">Established in 1988</h2>
     </div>
 
@@ -357,8 +357,7 @@
       top: 0;
       height: 100vh;
       overflow: hidden;
-      background-color: #fff;
-      transition: background-color 0.8s ease; /* Fixes the instant color flash glitch */
+      background-color: var(--ink); /* Starts dark to connect with services */
     }
 
     .lc-ring-perspective {
@@ -809,15 +808,7 @@
 
         // Removed endFade per user request - section will naturally scroll up when unpinned
 
-        // Background transition
-        const viewportEl = document.getElementById('lcRingViewport');
-        if (viewportEl) {
-          if (flatT > 0.05) {
-            viewportEl.style.backgroundColor = '#000000';
-          } else {
-            viewportEl.style.backgroundColor = '#ffffff';
-          }
-        }
+        // Background transition removed to keep it consistently dark and seamless with the previous section.
 
         let frontIndex = 0, frontMinAngle = 361;
 
