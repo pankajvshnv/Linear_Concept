@@ -453,7 +453,7 @@
     }
     .hero-headline {
       font-family: var(--ff-display);
-      font-size: clamp(44px, 8.5vw, 144px);
+      font-size: clamp(36px, 6vw, 90px); /* Reduced size per user request */
       max-width: 1200px;
       letter-spacing: -.01em; line-height: 1.02;
       font-weight: 500;
